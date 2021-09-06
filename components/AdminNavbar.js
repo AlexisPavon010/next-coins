@@ -1,11 +1,40 @@
+import Link from 'next/link'
 import Button from '@material-tailwind/react/Button';
 import Icon from '@material-tailwind/react/Icon';
 import NavbarInput from '@material-tailwind/react/NavbarInput';
 import Image from '@material-tailwind/react/Image';
 import Dropdown from '@material-tailwind/react/Dropdown';
 import DropdownItem from '@material-tailwind/react/DropdownItem';
+import { useCollection } from 'react-firebase-hooks/firestore';
+import { app, db } from '../firebase/client';
+import { useEffect, useState } from 'react';
+import { parseCookies, setCookie, destroyCookie } from 'nookies'
 
 export default function AdminNavbar({ showSidebar, setShowSidebar }) {
+
+
+    
+    const [userFb, setUser] = useState(undefined)
+
+    useEffect(() => {
+        app.auth().onAuthStateChanged(user => setUser(user))
+    }, [])
+
+    console.log(realTimeData)
+
+    const [realTimeData, loadig, error] = useCollection(
+        db.collection('user').doc('zVNxn0tK9cdtoFKcJ98zBdsefL23')
+    )
+
+
+    const cerrarSesion = () => {
+        console.log('salir')
+        destroyCookie(null, 'token', '', {
+            maxAge: 30 * 24 * 60 * 60
+          })
+        app.auth().signOut()
+    }
+
     return (
         <nav className="bg-gray-800 md:ml-64 py-6 px-3">
             <div className="container max-w-full mx-auto flex items-center justify-between md:pr-8 md:pl-10">
@@ -62,14 +91,22 @@ export default function AdminNavbar({ showSidebar, setShowSidebar }) {
                                     color: 'transparent',
                                 }}
                             >
-                                <DropdownItem color="lightBlue">
-                                    Action
-                                </DropdownItem>
-                                <DropdownItem color="lightBlue">
-                                    Another Action
-                                </DropdownItem>
-                                <DropdownItem color="lightBlue">
-                                    Something Else
+                                <Link href='/perfil'>
+                                    <a>
+                                        <DropdownItem color="lightBlue">
+                                            Perfil
+                                        </DropdownItem>
+                                    </a>
+                                </Link>
+                                <Link href='/configuracion'>
+                                    <a>
+                                        <DropdownItem color="lightBlue">
+                                            Configurar Cuenta
+                                        </DropdownItem>
+                                    </a>
+                                </Link>
+                                <DropdownItem onClick={() => cerrarSesion()} color="lightBlue">
+                                    Cerrar Sesion
                                 </DropdownItem>
                             </Dropdown>
                         </div>

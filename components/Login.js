@@ -9,6 +9,7 @@ import Register from './Register'
 import { useState } from 'react';
 import { app, db, googleAuthProvider, facebookAuthProvider } from '../firebase/client';
 import Head from 'next/head';
+import { parseCookies, setCookie, destroyCookie } from 'nookies'
 
 
 export default function Login({ children }) {

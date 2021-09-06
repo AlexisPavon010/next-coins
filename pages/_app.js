@@ -3,8 +3,31 @@ import 'tailwindcss/tailwind.css'
 import "@material-tailwind/react/tailwind.css";
 import Sidebar from '../components/Sidebar'
 import Head from 'next/head'
+import { useEffect, useState } from 'react';
+import { app } from '../firebase/client';
+import Login from '../components/Login';
+import { parseCookies, setCookie, destroyCookie } from 'nookies'
 
 function MyApp({ Component, pageProps }) {
+
+  const [userFb, setUser] = useState(undefined)
+
+  const guardarUsuario = (user) => {
+    // console.log(user)
+    setUser(user)
+    setCookie(null, 'token', user.uid, {
+      maxAge: 30 * 24 * 60 * 60
+    })
+
+  }
+
+
+  useEffect(() => {
+    app.auth().onAuthStateChanged(user => guardarUsuario(user))
+  }, [])
+
+  if( userFb === undefined ) return <></>
+  else if (!userFb) return <Login/>
 
   return (
     <>

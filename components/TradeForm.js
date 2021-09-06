@@ -5,11 +5,11 @@ import CardBody from '@material-tailwind/react/CardBody';
 import Button from '@material-tailwind/react/Button';
 import Input from '@material-tailwind/react/Input';
 import GenericsInput from '../hooks/useFormControls';
-// import { ToastContainer, toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
-// import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 import { useEffect, useState } from 'react';
-// import { app } from '../../firebase/client';
+import { app } from '../firebase/client';
 
 
 
@@ -18,7 +18,7 @@ export default function TradeForm() {
     const [user, setUser] = useState(null)
 
     const estadoInicial = {
-        portfolio: "",
+        portafolio: "",
         date: "",
         operation: "",
         cryptoBuy: "",
@@ -30,9 +30,9 @@ export default function TradeForm() {
 
     const [state, setState] = useState(estadoInicial)
 
-    // useEffect(() => {
-    //     app.auth().onAuthStateChanged(user => setUser(user))
-    // }, [])
+    useEffect(() => {
+        app.auth().onAuthStateChanged(user => setUser(user))
+    }, [])
 
     const cuandoCambiaElInput = (event) => {
         event.preventDefault()
@@ -42,24 +42,24 @@ export default function TradeForm() {
 
     }
 
-    // const compraExitosa = () => toast.success("Compra Exitosa", {
-    //     position: "top-right",
-    //     autoClose: 2500,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     pauseOnHover: true,
-    //     draggable: true,
-    //     progress: undefined,
-    // });
-    // const ventaExitosa = () => toast.success("Venta Exitosa", {
-    //     position: "top-right",
-    //     autoClose: 2500,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     pauseOnHover: true,
-    //     draggable: true,
-    //     progress: undefined,
-    // });
+    const compraExitosa = () => toast.success("Compra Exitosa", {
+        position: "top-right",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+    });
+    const ventaExitosa = () => toast.success("Venta Exitosa", {
+        position: "top-right",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+    });
 
     const enviarAlServidor = async (e) => {
         e.preventDefault()
@@ -82,6 +82,7 @@ export default function TradeForm() {
 
         }
 
+        console.log(res)
 
     }
 
@@ -92,7 +93,7 @@ export default function TradeForm() {
                 <title>Trade | Crypto Coin's</title>
             </Head>
             <Card>
-                {/* <ToastContainer /> */}
+                <ToastContainer />
                 <CardHeader color="green" contentPosition="none">
                     <div className="w-full flex items-center justify-between">
                         <h2 className="text-white text-2xl">Trade</h2>
@@ -113,24 +114,12 @@ export default function TradeForm() {
                         </h6>
                         <div className="flex flex-wrap mt-10">
                             <div className="w-full lg:w-6/12 pr-4 mb-10 font-light">
-                                <Input placeholder='Rol?' outline={true} name="docType" id="color" list="colors" />
-                                <datalist id="colors">
-                                    <option>Estudiante</option>
-                                    <option>Profesor</option>
+                                <Input placeholder='Choose Portafolio' value={state.portafolio} onChange={cuandoCambiaElInput} outline={true} name="portafolio" list="portafolio" />
+                                <datalist id="portafolio">
+                                    <option>Portafolio A</option>
+                                    <option>Portafolio B</option>
                                 </datalist>
                             </div>
-                            {/* <div className="w-full lg:w-6/12 pr-4 mb-10 font-light">
-                                <GenericsInput
-                                    type="text"
-                                    color="green"
-                                    placeholder="Choose Portfolio"
-                                    outline={true}
-                                    entity="portfolio"
-                                    name="portfolio"
-                                    value={state.portfolio}
-                                    onChange={cuandoCambiaElInput}
-                                />
-                            </div> */}
                             <div className="w-full lg:w-6/12 pr-4 mb-10 font-light">
                                 <Input
                                     type="text"
@@ -147,11 +136,11 @@ export default function TradeForm() {
                             Operation
                         </h6>
                         <div className="flex flex-wrap mt-10">
-                        <div className="w-full lg:w-6/12 pr-4 mb-10 font-light">
-                                <Input placeholder='Rol?' outline={true} name="docType" id="color" list="colors" />
+                            <div className="w-full lg:w-6/12 pr-4 mb-10 font-light">
+                                <Input placeholder='Operation?' value={state.operation} onChange={cuandoCambiaElInput} outline={true} name="operation" list="colors" />
                                 <datalist id="colors">
-                                    <option>Estudiante</option>
-                                    <option>Profesor</option>
+                                    <option>Sell</option>
+                                    <option>Buy</option>
                                 </datalist>
                             </div>
                         </div>
@@ -159,18 +148,30 @@ export default function TradeForm() {
                             Choose Cryptocurrency
                         </h6>
                         <div className="flex flex-wrap mt-10">
-                        <div className="w-full lg:w-6/12 pr-4 mb-10 font-light">
-                                <Input placeholder='Rol?' outline={true} name="docType" id="color" list="colors" />
-                                <datalist id="colors">
-                                    <option>Estudiante</option>
-                                    <option>Profesor</option>
+                            <div className="w-full lg:w-6/12 pr-4 mb-10 font-light">
+                                <Input placeholder='Choose Cryptocurrency Buy' value={state.cryptoBuy} onChange={cuandoCambiaElInput} outline={true} name="cryptoBuy" list="cryptoBuy" />
+                                <datalist id="cryptoBuy">
+                                    <option>Bitcoin</option>
+                                    <option>Ethereum</option>
+                                    <option>Cardano</option>
+                                    <option>Dai</option>
+                                    <option>Tether</option>
+                                    <option>Solana</option>
+                                    <option>Ergo</option>
+                                    <option>USDC</option>
                                 </datalist>
                             </div>
                             <div className="w-full lg:w-6/12 pr-4 mb-10 font-light">
-                                <Input placeholder='Rol?' outline={true} name="docType" id="color" list="colors" />
-                                <datalist id="colors">
-                                    <option>Estudiante</option>
-                                    <option>Profesor</option>
+                                <Input placeholder='Choose Cryptocurrency Sell' value={state.cryptoSell} onChange={cuandoCambiaElInput} outline={true} name="cryptoSell" list="cryptocurrency" />
+                                <datalist id="cryptocurrency">
+                                    <option>Bitcoin</option>
+                                    <option>Ethereum</option>
+                                    <option>Cardano</option>
+                                    <option>Dai</option>
+                                    <option>Tether</option>
+                                    <option>Solana</option>
+                                    <option>Ergo</option>
+                                    <option>USDC</option>
                                 </datalist>
                             </div>
                         </div>
