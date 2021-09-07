@@ -10,12 +10,16 @@ import { useState } from 'react';
 import { app, db, googleAuthProvider, facebookAuthProvider } from '../firebase/client';
 import Head from 'next/head';
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
+import { useDispatch } from 'react-redux';
+import axios from 'axios';
+import { addUser } from '../slices/userReducer';
 
 
 export default function Login({ children }) {
 
     const [user, setUser] = useState(null)
     const [register, setRegister] = useState(false)
+    const dispatch = useDispatch()
 
     const handleInputChange = (e) => {
         e.preventDefault()
@@ -26,7 +30,21 @@ export default function Login({ children }) {
     const iniciarSesion = async () => {
         const { email, password } = user
         try {
-            await app.auth().signInWithEmailAndPassword(email, password)
+            const userServer = await axios.get('/api/users') 
+
+            const userResult = userServer.data.find( user => user.email === email );
+
+            if(userResult === undefined) {
+                alert('Usuario no Encontrado')
+                setUser(null)
+            }
+
+            else {
+                dispatch(addUser(userResult))
+                // console.log(userResult)
+            }
+
+
             // const currentUser = await app.auth().currentUser
             // const firebaseToken = await app.auth().currentUser.getIdToken()
             // console.log(currentUser);

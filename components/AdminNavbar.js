@@ -9,9 +9,12 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import { app, db } from '../firebase/client';
 import { useEffect, useState } from 'react';
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
+import { removeUser } from '../slices/userReducer';
+import { useDispatch } from 'react-redux';
 
 export default function AdminNavbar({ showSidebar, setShowSidebar }) {
 
+    const dispatch = useDispatch()
 
     
     const [userFb, setUser] = useState(undefined)
@@ -20,18 +23,16 @@ export default function AdminNavbar({ showSidebar, setShowSidebar }) {
         app.auth().onAuthStateChanged(user => setUser(user))
     }, [])
 
-    console.log(realTimeData)
+    // console.log(realTimeData)
 
-    const [realTimeData, loadig, error] = useCollection(
-        db.collection('user').doc('zVNxn0tK9cdtoFKcJ98zBdsefL23')
-    )
+    // const [realTimeData, loadig, error] = useCollection(
+    //     db.collection('user').doc('zVNxn0tK9cdtoFKcJ98zBdsefL23')
+    // )
 
 
     const cerrarSesion = () => {
         console.log('salir')
-        destroyCookie(null, 'token', '', {
-            maxAge: 30 * 24 * 60 * 60
-          })
+        dispatch(removeUser(userFb))
         app.auth().signOut()
     }
 
