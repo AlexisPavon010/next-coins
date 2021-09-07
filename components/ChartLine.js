@@ -127,7 +127,3 @@ export default function ChartLine() {
         </Card>
     );
 }
-
-export default function getServerSideProps (ctx) {
-
-}
