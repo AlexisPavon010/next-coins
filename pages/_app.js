@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps }) {
   const guardarUsuario = (user) => {
     // console.log(user)
     setUser(user)
-    setCookie(null, 'token', user.uid, {
+    setCookie(null, 'token', user?.uid, {
       maxAge: 30 * 24 * 60 * 60
     })
 
