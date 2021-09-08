@@ -48,7 +48,7 @@ export default function Sidebar() {
                                 </Link>
                             </li>
                             <li className="rounded-lg mb-2">
-                                <Link href='/' >
+                                <Link href='/configuracion' >
                                     <a className="flex items-center gap-4 text-sm text-white font-light px-4 py-3 rounded-lg">
                                         <Icon name="settings" size="2xl" />
                                         Configuracion
