@@ -26,6 +26,9 @@ export default function Trade({userUid, tradeFb}) {
     );
 }
 export async function getServerSideProps(ctx) {
+
+  console.log('hola ' + ctx.req.cookies.token )
+
     const resF = await firestore().collection(ctx.req.cookies.token).doc('movimientos').collection('order').get()
     const docs = resF.docs.map((doc)=> ({...doc.data()}))
 
