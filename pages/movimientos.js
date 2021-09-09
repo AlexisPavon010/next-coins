@@ -4,6 +4,8 @@ import Movimientos from '../components/Movimientos';
 import { db } from '../firebase/client';
 
 export default function Trade({userUid, tradeFb}) {
+
+  console.log(userUid)
    
     return (
         <>
@@ -16,7 +18,7 @@ export default function Trade({userUid, tradeFb}) {
             <div className="px-3 md:px-8 h-auto mt-10">
                 <div className="container mx-auto max-w-full">
                     <div className="grid grid-cols-1 px-4 mb-16">
-                        <Movimientos userUid={userUid} tradeFb={JSON.parse(tradeFb)} />
+                        {/* <Movimientos userUid={userUid} tradeFb={JSON.parse(tradeFb)} /> */}
                     </div>
                 </div>
             </div>
@@ -24,8 +26,8 @@ export default function Trade({userUid, tradeFb}) {
     );
 }
 export async function getServerSideProps(ctx) {
-    const resF = await db.collection(ctx.req.cookies.token).doc('movimientos').collection('order').get()
-    const docs = resF.docs.map((doc)=> ({...doc.data()}))
+    // const resF = await db.collection(ctx.req.cookies.token).doc('movimientos').collection('order').get()
+    // const docs = resF.docs.map((doc)=> ({...doc.data()}))
 
 // console.log(docs)
 
@@ -38,7 +40,7 @@ export async function getServerSideProps(ctx) {
   
     return {
       props: {
-        tradeFb: JSON.stringify(docs),
+        // tradeFb: JSON.stringify(docs),
         userUid: ctx.req.cookies.token,
       }, // will be passed to the page component as props
     }
