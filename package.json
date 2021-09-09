@@ -11,7 +11,7 @@
   "dependencies": {
     "@material-tailwind/react": "0.3.4",
     "axios": "^0.21.3",
-    "firebase": "^4.8.0",
+    "firebase": "^8.0.2",
     "firebase-admin": "^9.11.1",
     "next": "11.1.2",
     "nookies": "^2.5.2",
