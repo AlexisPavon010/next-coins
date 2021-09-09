@@ -20,11 +20,11 @@ export default function AdminNavbar({ showSidebar, setShowSidebar }) {
         app.auth().onAuthStateChanged(user => setUser(user))
     }, [])
 
-    console.log(realTimeData)
+    // console.log(realTimeData)
 
-    const [realTimeData, loadig, error] = useCollection(
-        db.collection('user').doc('zVNxn0tK9cdtoFKcJ98zBdsefL23')
-    )
+    // const [realTimeData, loadig, error] = useCollection(
+    //     db.collection('user').doc('zVNxn0tK9cdtoFKcJ98zBdsefL23')
+    // )
 
 
     const cerrarSesion = () => {
