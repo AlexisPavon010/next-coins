@@ -38,7 +38,7 @@ export default function SettingsForm() {
                     </div>
                     <div className="w-full flex items-center justify-between">
                             <Button
-                                onClick=""
+                                
                                 color="green"
                                 buttonType="filled"
                                 size="lg"

@@ -231,9 +231,7 @@ export default function ProfileCard({ userFb }) {
                             </div>
                         </div>
                     </CardBody>
-                    <CardFooter>
 
-                    </CardFooter>
                 </form>
             </Card>
         </>
