@@ -9,11 +9,14 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 
 export default function Movimientos({ tradeFb, userUid }) {
 
-    console.log(tradeFb)
-    console.log(userUid)
+    // console.log(tradeFb)
+    // console.log(userUid)
 
-    const [trade, setTrade] = useState([null])
-    const [userFb, setUser] = useState(undefined)
+
+    const [realtimeDb, loading, error] = useCollection(
+        db.collection(userUid).doc('movimientos').collection('order')
+    )
+    // console.log(realtimeDb)
 
     // useEffect(() => {
     //     app.auth().onAuthStateChanged(user => setUser(user))
@@ -56,7 +59,9 @@ export default function Movimientos({ tradeFb, userUid }) {
                             </thead>
                             <tbody>
 
-                                {/* {tradeFb ? JSON.parse(tradeFb)?.map((trade, i) => (
+
+                                {
+                                tradeFb ? tradeFb?.map((trade, i) => (
                                     <tr key={i}>
                                         <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
                                             <i className={`fas fa-circle fa-sm ${trade?.operation === 'Shell' ? 'text-green-500' : 'text-blue-500'} mr-2`} ></i>{' '}
@@ -74,29 +79,31 @@ export default function Movimientos({ tradeFb, userUid }) {
                                         <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
                                             Binance
                                         </th>
-                                    </tr>)) :
+                                    </tr>
+                                    )) :
 
-                                    trade?.map((trade, i) => (
+                                    realtimeDb?.docs.map((trade, i) => (
+                                        // console.log(trade?.data()),
                                         <tr key={i}>
                                             <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
                                                 <i className={`fas fa-circle fa-sm ${trade?.operation === 'Shell' ? 'text-green-500' : 'text-blue-500'} mr-2`} ></i>{' '}
-                                                {trade?.operation}
+                                                {trade?.data().operation}
                                             </th>
                                             <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                                {trade?.operation}
+                                                {trade?.data().cryptoSell}
                                             </th>
                                             <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                                {`${trade?.cryptoSell} ${trade.price}`}
+                                                {`${trade?.data().cryptoSell} ${trade?.data().price}`}
                                             </th>
                                             <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                                {`${trade?.cryptoSell} ${trade.quantity}`}
+                                                {`${trade?.data().cryptoSell} ${trade?.data().quantity}`}
                                             </th>
                                             <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
                                                 Binance
                                             </th>
                                         </tr>
-                                    ))} */}
-                                <tr>
+                                    ))}
+                                {/* <tr>
                                     <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
                                         <i className="fas fa-circle fa-sm text-green-500 mr-2"></i>{' '}
                                         Buy
@@ -167,7 +174,7 @@ export default function Movimientos({ tradeFb, userUid }) {
                                     <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
                                         Binance
                                     </th>
-                                </tr>
+                                </tr> */}
                             </tbody>
                         </table>
                     </div>
