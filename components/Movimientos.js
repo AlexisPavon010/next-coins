@@ -4,7 +4,7 @@ import CardHeader from '@material-tailwind/react/CardHeader';
 import CardBody from '@material-tailwind/react/CardBody';
 import Progress from '@material-tailwind/react/Progress';
 
-export default function Movimientos({tradeFb}) { 
+export default function Movimientos({tradeFb}) {
     return (
         <>
             <Head>
@@ -37,7 +37,7 @@ export default function Movimientos({tradeFb}) {
                                 </tr>
                             </thead>
                             <tbody>
-                                    {tradeFb.map((trade, i) => (
+                                    {tradeFb?.map((trade, i) => (
                                          <tr key={i}>
                                          <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
                                          <i className={`fas fa-circle fa-sm ${trade?.operation === 'Shell' ? 'text-green-500' : 'text-blue-500' } mr-2`} ></i>{' '}

@@ -12,23 +12,24 @@ export default async function (req, res) {
         const { data, user } = req.body;
         if (req.body) {
 
-            const coinGekoApiResponse = await axios.get(`https://api.coingecko.com/api/v3/coins/${data?.cryptoBuy.toLowerCase()}`) 
+            const coinGekoApiResponse = await axios.get(`https://api.coingecko.com/api/v3/coins/${data?.cryptoBuy.toLowerCase()}`)
 
-            const {market_data} = coinGekoApiResponse.data;
+            const { market_data } = coinGekoApiResponse.data;
 
-            console.log(market_data.current_price)
+            console.log(market_data.current_price.usd)
 
-            // db.collection(user).doc("movimientos").collection("order").doc().set({
-            //     portafolio: data?.portafolio,
-            //     date: data?.date,
-            //     operation: data?.operation,
-            //     cryptoBuy: data?.cryptoBuy,
-            //     cryptoSell: data?.cryptoSell,
-            //     import: data?.import,
-            //     price: data?.price,
-            //     quantity: data?.quantity,
-            //     auditDate: new Date()
-            // })
+            db.collection(user).doc("movimientos").collection("order").doc().set({
+                portafolio: data?.portafolio,
+                date: data?.date,
+                operation: data?.operation,
+                cryptoBuy: data?.cryptoBuy,
+                cryptoSell: data?.cryptoSell,
+                currentPrice: market_data.current_price.usd,
+                import: data?.import,
+                price: data?.price,
+                quantity: data?.quantity,
+                auditDate: new Date()
+            })
         }
         res.status(200).send({ operation: data?.operation })
 
@@ -39,6 +40,6 @@ export default async function (req, res) {
     if (req.method === 'DELETE') {
         res.status(200).send({ message: 'deleted' })
     }
-    console.log(req.method)
+    res.status(401).send({message: 'not fund'})
 
 }
