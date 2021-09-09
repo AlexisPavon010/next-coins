@@ -8,9 +8,9 @@ import Textarea from '@material-tailwind/react/Textarea';
 export default function SettingsForm() {
     return (
         <Card>
-            <CardHeader color="purple" contentPosition="none">
+            <CardHeader color="green" contentPosition="none">
                 <div className="w-full flex items-center justify-between">
-                    <h2 className="text-white text-2xl">My Account</h2>
+                    <h2 className="text-white text-2xl">Configuration App</h2>
                     <Button
                         color="transparent"
                         buttonType="link"
@@ -23,80 +23,33 @@ export default function SettingsForm() {
             </CardHeader>
             <CardBody>
                 <form>
-                    <h6 className="text-purple-500 text-sm mt-3 mb-6 font-light uppercase">
-                        User Information
+                    <h6 className="text-green-500 text-sm mt-3 mb-6 font-light uppercase">
+                        Information
                     </h6>
                     <div className="flex flex-wrap mt-10">
                         <div className="w-full lg:w-6/12 pr-4 mb-10 font-light">
                             <Input
                                 type="text"
-                                color="purple"
-                                placeholder="Username"
-                            />
-                        </div>
-                        <div className="w-full lg:w-6/12 pl-4 mb-10 font-light">
-                            <Input
-                                type="email"
-                                color="purple"
-                                placeholder="Email Address"
-                            />
-                        </div>
-                        <div className="w-full lg:w-6/12 pr-4 mb-10 font-light">
-                            <Input
-                                type="text"
-                                color="purple"
-                                placeholder="First Name"
-                            />
-                        </div>
-                        <div className="w-full lg:w-6/12 pl-4 mb-10 font-light">
-                            <Input
-                                type="email"
-                                color="purple"
-                                placeholder="Last Name"
+                                color="green"
+                                outline={true}
+                                placeholder="Money Symbol"
                             />
                         </div>
                     </div>
-
-                    <h6 className="text-purple-500 text-sm my-6 font-light uppercase">
-                        Contact Information
-                    </h6>
-                    <div className="flex flex-wrap mt-10">
-                        <div className="w-full lg:w-12/12 mb-10 font-light">
-                            <Input
-                                type="text"
-                                color="purple"
-                                placeholder="Address"
-                            />
+                    <div className="w-full flex items-center justify-between">
+                            <Button
+                                
+                                color="green"
+                                buttonType="filled"
+                                size="lg"
+                                rounded={false}
+                                block={true}
+                                iconOnly={false}
+                                ripple="light"
+                            >
+                                Enviar
+                            </Button>
                         </div>
-                        <div className="w-full lg:w-4/12 pr-4 mb-10 font-light">
-                            <Input
-                                type="text"
-                                color="purple"
-                                placeholder="City"
-                            />
-                        </div>
-                        <div className="w-full lg:w-4/12 px-4 mb-10 font-light">
-                            <Input
-                                type="text"
-                                color="purple"
-                                placeholder="Country"
-                            />
-                        </div>
-                        <div className="w-full lg:w-4/12 pl-4 mb-10 font-light">
-                            <Input
-                                type="text"
-                                color="purple"
-                                placeholder="Postal Code"
-                            />
-                        </div>
-                    </div>
-
-                    <h6 className="text-purple-500 text-sm my-6 font-light uppercase">
-                        About Me
-                    </h6>
-                    <div className="flex flex-wrap mt-10 font-light">
-                        <Textarea color="purple" placeholder="About Me" />
-                    </div>
                 </form>
             </CardBody>
         </Card>
