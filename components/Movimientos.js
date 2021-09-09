@@ -8,7 +8,7 @@ export default function Movimientos({tradeFb}) {
     return (
         <>
             <Head>
-                <title>Movimientos | Crypto Coin's</title>
+                <title>Movimientos | Crypto Coins</title>
             </Head>
             <Card>
                 <CardHeader color="green" contentPosition="left">

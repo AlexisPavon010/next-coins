@@ -98,7 +98,7 @@ export default function ProfileCard({ userFb }) {
     return (
         <>
             <Head>
-                <title>Perfil Usuario | Crypto Coin's</title>
+                <title>Perfil Usuario | Crypto Coins</title>
             </Head>
             <Card>
                 <div className="flex flex-wrap justify-center">

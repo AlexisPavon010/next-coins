@@ -90,7 +90,7 @@ export default function TradeForm() {
     return (
         <>
             <Head>
-                <title>Trade | Crypto Coin's</title>
+                <title>Trade | Crypto Coins</title>
             </Head>
             <Card>
                 <ToastContainer />
