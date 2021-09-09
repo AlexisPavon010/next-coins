@@ -1,8 +1,9 @@
 import Head from 'next/head';
 import Movimientos from '../components/Movimientos';
-import { db } from '../firebase/client';
+import { app, db } from '../firebase/client';
 
 export default function Trade(props) {
+    console.log(props)
     return (
         <>
             <Head>

@@ -3,18 +3,22 @@ import Card from '@material-tailwind/react/Card';
 import CardHeader from '@material-tailwind/react/CardHeader';
 import CardBody from '@material-tailwind/react/CardBody';
 import Progress from '@material-tailwind/react/Progress';
-import { db } from '../firebase/client';
+import { app, db } from '../firebase/client';
 import { useEffect, useState } from 'react';
+import { useCollection } from 'react-firebase-hooks/firestore';
 
 export default function Movimientos({ tradeFb, userUid }) {
 
-    const [trade, setTrade] = useState(null)
+    const [trade, setTrade] = useState([null])
+    const [userFb, setUser] = useState(undefined)
 
     useEffect(() => {
-        db.collection(userUid).doc('movimientos').collection('order').get().then(doc => {
-            doc.docs.map(doc => { setTrade(doc.data()) })
-        })
+        app.auth().onAuthStateChanged(user => setUser(user))
+        db.collection(userUid).doc('movimientos').collection('order').get().then(
+            doc=>doc.docs.map(data=> setTrade(data.data())))
     }, [])
+
+
 
     return (
         <>
