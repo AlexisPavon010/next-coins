@@ -9,6 +9,9 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 
 export default function Movimientos({ tradeFb, userUid }) {
 
+    console.log(tradeFb)
+    console.log(userUid)
+
     const [trade, setTrade] = useState([null])
     const [userFb, setUser] = useState(undefined)
 
