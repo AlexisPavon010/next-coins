@@ -12,11 +12,11 @@ export default function Movimientos({ tradeFb, userUid }) {
     const [trade, setTrade] = useState([null])
     const [userFb, setUser] = useState(undefined)
 
-    useEffect(() => {
-        app.auth().onAuthStateChanged(user => setUser(user))
-        db.collection(userUid).doc('movimientos').collection('order').get().then(
-            doc=>doc.docs.map(data=> setTrade(data.data())))
-    }, [])
+    // useEffect(() => {
+    //     app.auth().onAuthStateChanged(user => setUser(user))
+    //     db.collection(userFb?.uid).doc('movimientos').collection('order').get().then(
+    //         doc=>doc.docs.map(data=> setTrade(data.data())))
+    // }, [])
 
 
 
@@ -53,7 +53,7 @@ export default function Movimientos({ tradeFb, userUid }) {
                             </thead>
                             <tbody>
 
-                                {tradeFb ? JSON.parse(tradeFb)?.map((trade, i) => (
+                                {/* {tradeFb ? JSON.parse(tradeFb)?.map((trade, i) => (
                                     <tr key={i}>
                                         <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
                                             <i className={`fas fa-circle fa-sm ${trade?.operation === 'Shell' ? 'text-green-500' : 'text-blue-500'} mr-2`} ></i>{' '}
@@ -92,7 +92,7 @@ export default function Movimientos({ tradeFb, userUid }) {
                                                 Binance
                                             </th>
                                         </tr>
-                                    ))}
+                                    ))} */}
                                 <tr>
                                     <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
                                         <i className="fas fa-circle fa-sm text-green-500 mr-2"></i>{' '}

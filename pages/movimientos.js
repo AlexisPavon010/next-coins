@@ -23,8 +23,6 @@ export default function Trade(props) {
     );
 }
 export async function getServerSideProps(ctx) {
-
-  
     const rst = await db.collection(ctx.req.cookies.token).doc('movimientos').collection('order').get()
     const docs = rst.docs.map((doc) => ({...doc.data()}))
 
