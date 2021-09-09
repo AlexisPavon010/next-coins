@@ -3,8 +3,19 @@ import Card from '@material-tailwind/react/Card';
 import CardHeader from '@material-tailwind/react/CardHeader';
 import CardBody from '@material-tailwind/react/CardBody';
 import Progress from '@material-tailwind/react/Progress';
+import { db } from '../firebase/client';
+import { useEffect, useState } from 'react';
 
-export default function Movimientos({tradeFb}) {
+export default function Movimientos({ tradeFb, userUid }) {
+
+    const [trade, setTrade] = useState(null)
+
+    useEffect(() => {
+        db.collection(userUid).doc('movimientos').collection('order').get().then(doc => {
+            doc.docs.map(doc => { setTrade(doc.data()) })
+        })
+    }, [])
+
     return (
         <>
             <Head>
@@ -37,29 +48,50 @@ export default function Movimientos({tradeFb}) {
                                 </tr>
                             </thead>
                             <tbody>
-                                    {tradeFb?.map((trade, i) => (
-                                         <tr key={i}>
-                                         <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                         <i className={`fas fa-circle fa-sm ${trade?.operation === 'Shell' ? 'text-green-500' : 'text-blue-500' } mr-2`} ></i>{' '}
-                                             {trade?.operation}
-                                         </th>
-                                         <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                         {trade?.operation}
-                                         </th>
-                                         <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                             {`${trade?.cryptoSell} ${trade.price}`}
-                                         </th>
-                                         <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                         {`${trade?.cryptoSell} ${trade.quantity}`}
-                                         </th>
-                                         <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                             Binance
-                                         </th>
-                                     </tr>
+
+                                {tradeFb ? JSON.parse(tradeFb)?.map((trade, i) => (
+                                    <tr key={i}>
+                                        <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
+                                            <i className={`fas fa-circle fa-sm ${trade?.operation === 'Shell' ? 'text-green-500' : 'text-blue-500'} mr-2`} ></i>{' '}
+                                            {trade?.operation}
+                                        </th>
+                                        <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
+                                            {trade?.operation}
+                                        </th>
+                                        <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
+                                            {`${trade?.cryptoSell} ${trade.price}`}
+                                        </th>
+                                        <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
+                                            {`${trade?.cryptoSell} ${trade.quantity}`}
+                                        </th>
+                                        <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
+                                            Binance
+                                        </th>
+                                    </tr>)) :
+
+                                    trade?.map((trade, i) => (
+                                        <tr key={i}>
+                                            <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
+                                                <i className={`fas fa-circle fa-sm ${trade?.operation === 'Shell' ? 'text-green-500' : 'text-blue-500'} mr-2`} ></i>{' '}
+                                                {trade?.operation}
+                                            </th>
+                                            <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
+                                                {trade?.operation}
+                                            </th>
+                                            <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
+                                                {`${trade?.cryptoSell} ${trade.price}`}
+                                            </th>
+                                            <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
+                                                {`${trade?.cryptoSell} ${trade.quantity}`}
+                                            </th>
+                                            <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
+                                                Binance
+                                            </th>
+                                        </tr>
                                     ))}
                                 <tr>
                                     <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                    <i className="fas fa-circle fa-sm text-green-500 mr-2"></i>{' '}
+                                        <i className="fas fa-circle fa-sm text-green-500 mr-2"></i>{' '}
                                         Buy
                                     </th>
                                     <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
@@ -95,7 +127,7 @@ export default function Movimientos({tradeFb}) {
                                 </tr>
                                 <tr>
                                     <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                    <i className="fas fa-circle fa-sm text-green-500 mr-2"></i>{' '}
+                                        <i className="fas fa-circle fa-sm text-green-500 mr-2"></i>{' '}
                                         Buy
                                     </th>
                                     <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
@@ -113,7 +145,7 @@ export default function Movimientos({tradeFb}) {
                                 </tr>
                                 <tr>
                                     <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                    <i className="fas fa-circle fa-sm text-blue-500 mr-2"></i>{' '}
+                                        <i className="fas fa-circle fa-sm text-blue-500 mr-2"></i>{' '}
                                         Sell
                                     </th>
                                     <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
