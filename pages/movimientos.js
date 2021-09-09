@@ -25,7 +25,7 @@ export default function Trade({userUid, tradeFb}) {
 }
 export async function getServerSideProps(ctx) {
     const resF = await db.collection(ctx.req.cookies.token).doc('movimientos').collection('order').get()
-    const docs =resF.docs.map((doc)=> ({...doc.data()}))
+    const docs = resF.docs.map((doc)=> ({...doc.data()}))
 
 // console.log(docs)
 
