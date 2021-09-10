@@ -28,11 +28,13 @@ export default async function (req, res) {
                 })
             }
         }
+            res.status(200).send({ operation: data?.operation })
+
     } catch (error) {
         res.status(200).send({ operation: error.message })
     }
 
-    res.status(200).send({ operation: data?.operation })
+    // res.status(200).send({ operation: data?.operation })
     // if (req.method === 'GET') {
     //     res.status(200).send({ message: 'Las monedas que compre' })
     // }
