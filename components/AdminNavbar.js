@@ -18,6 +18,8 @@ export default function AdminNavbar({ showSidebar, setShowSidebar }) {
 
     useEffect(() => {
         app.auth().onAuthStateChanged(user => setUser(user))
+        setShowSidebar('-left-64')
+        console.log('object')
     }, [])
 
     // console.log(realTimeData)

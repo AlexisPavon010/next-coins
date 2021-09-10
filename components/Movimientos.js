@@ -9,8 +9,8 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 
 export default function Movimientos({ tradeFb, userUid }) {
 
-    console.log(tradeFb)
-    console.log(userUid)
+    // console.log(tradeFb)
+    // console.log(userUid)
 
 
     const [realtimeDb, loading, error] = useCollection(
@@ -61,48 +61,49 @@ export default function Movimientos({ tradeFb, userUid }) {
 
 
                                 {
-                                tradeFb ? tradeFb?.map((trade, i) => (
-                                    <tr key={i}>
-                                        <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                            <i className={`fas fa-circle fa-sm ${trade?.operation === 'Shell' ? 'text-green-500' : 'text-blue-500'} mr-2`} ></i>{' '}
-                                            {trade?.operation}
-                                        </th>
-                                        <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                            {trade?.operation}
-                                        </th>
-                                        <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                            {`${trade?.cryptoSell} ${trade.price}`}
-                                        </th>
-                                        <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                            {`${trade?.cryptoSell} ${trade.quantity}`}
-                                        </th>
-                                        <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                            Binance
-                                        </th>
-                                    </tr>
-                                    )) :
-
-                                    realtimeDb?.docs.map((trade, i) => (
-                                        // console.log(trade?.data()),
+                                    tradeFb ? tradeFb?.map((trade, i) => (
                                         <tr key={i}>
                                             <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                                <i className={`fas fa-circle fa-sm ${trade?.operation === 'Shell' ? 'text-green-500' : 'text-blue-500'} mr-2`} ></i>{' '}
-                                                {trade?.data().operation}
+                                                <i className={`fas fa-circle fa-sm ${trade?.operation === 'Sell' ? 'text-green-500' : 'text-blue-500'} mr-2`} ></i>{' '}
+                                                {trade?.operation}
                                             </th>
                                             <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                                {trade?.data().cryptoSell}
+                                                {`${trade?.operation === 'Sell' ? trade?.cryptoSell : trade?.cryptoBuy}   `}
                                             </th>
                                             <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                                {`${trade?.data().cryptoSell} ${trade?.data().price}`}
+                                                {`${'USD'} $${trade.price}`}
                                             </th>
                                             <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                                {`${trade?.data().cryptoSell} ${trade?.data().quantity}`}
+                                                {`${trade?.cryptoSell} $${trade.quantity}`}
                                             </th>
                                             <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
                                                 Binance
                                             </th>
                                         </tr>
-                                    ))}
+                                    )) :
+
+                                        realtimeDb?.docs.map((trade, i) => (
+                                            // console.log(trade?.data()),
+                                            <tr key={i}>
+                                                <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
+                                                    <i className={`fas fa-circle fa-sm ${trade?.data().operation === 'Sell' ? 'text-green-500' : 'text-blue-500'} mr-2`} ></i>{' '}
+                                                    {trade?.data().operation}
+                                                </th>
+                                                <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
+                                                {`${trade?.data().operation === 'Sell' ? trade?.data().cryptoSell : trade?.data().cryptoBuy}`}
+                                                </th>
+                                                <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
+                                                    {`${trade?.data().cryptoSell} $${trade?.data().price}`}
+                                                </th>
+                                                <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
+                                                    {`${trade?.data().cryptoSell} $${trade?.data().quantity}`}
+                                                </th>
+                                                <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
+                                                    Binance
+                                                </th>
+                                            </tr>
+                                        ))}
+
                                 {/* <tr>
                                     <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
                                         <i className="fas fa-circle fa-sm text-green-500 mr-2"></i>{' '}

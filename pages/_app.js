@@ -10,6 +10,7 @@ import { parseCookies, setCookie, destroyCookie } from 'nookies'
 
 function MyApp({ Component, pageProps }) {
 
+  const [showSidebar, setShowSidebar] = useState('-left-64');
   const [userFb, setUser] = useState(undefined)
 
   const guardarUsuario = (user) => {
@@ -24,15 +25,16 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     app.auth().onAuthStateChanged(user => guardarUsuario(user))
-  }, [])
+    setShowSidebar('-left-64')
+  }, [pageProps])
 
-  if( userFb === undefined ) return <></>
-  else if (!userFb) return <Login/>
+  if (userFb === undefined) return <></>
+  else if (!userFb) return <Login />
 
   return (
     <>
-    <Head>
-    <link
+      <Head>
+        <link
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet"
         />
@@ -42,8 +44,11 @@ function MyApp({ Component, pageProps }) {
           integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
           crossOrigin="anonymous"
         />
-    </Head>
-      <Sidebar />
+      </Head>
+      <Sidebar
+        showSidebar={showSidebar}
+        setShowSidebar={setShowSidebar}
+      />
       <div className="md:ml-64">
         <Component {...pageProps} />
       </div>

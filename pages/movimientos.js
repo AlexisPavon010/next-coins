@@ -15,9 +15,9 @@ export default function Trade({userUid, tradeFb}) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <div className="px-3 md:px-8 h-auto mt-10">
+            <div className=" md:px-8 h-auto mt-10">
                 <div className="container mx-auto max-w-full">
-                    <div className="grid grid-cols-1 px-4 mb-16">
+                    <div className="grid grid-cols-1 mb-16">
                         <Movimientos userUid={userUid} tradeFb={JSON.parse(tradeFb)} />
                     </div>
                 </div>

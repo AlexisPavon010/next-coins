@@ -196,20 +196,20 @@ export default function ProfileCard({ userFb }) {
                                     <Input
                                         type="text"
                                         color="green"
-                                        placeholder={"Full Name " + user?.displayName}
+                                        placeholder={"Full Name "}
                                         outline={true}
                                         onChange={cuandoCambiaElInput}
-                                        value={user?.displayName}
+                                        // value={user?.displayName}
                                     />
                                 </div>
                                 <div className="w-full lg:w-6/12 pl-4 mb-10 font-light">
                                     <Input
                                         type="email"
                                         color="green"
-                                        placeholder={"Email Address " + user?.email}
+                                        placeholder={"Email Address "}
                                         outline={true}
                                         onChange={cuandoCambiaElInput}
-                                        value={user?.email}
+                                        // value={user?.email}
 
                                     />
                                 </div>
