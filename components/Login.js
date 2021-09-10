@@ -1,15 +1,14 @@
 import Card from '@material-tailwind/react/Card';
-import CardHeader from '@material-tailwind/react/CardHeader';
 import CardBody from '@material-tailwind/react/CardBody';
 import CardFooter from '@material-tailwind/react/CardFooter';
 import InputIcon from '@material-tailwind/react/InputIcon';
-import Checkbox from '@material-tailwind/react/Checkbox';
 import Button from '@material-tailwind/react/Button';
 import Register from './Register'
 import { useState } from 'react';
 import { app, db, googleAuthProvider, facebookAuthProvider } from '../firebase/client';
 import Head from 'next/head';
-import { parseCookies, setCookie, destroyCookie } from 'nookies'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function Login({ children }) {
@@ -24,9 +23,41 @@ export default function Login({ children }) {
     }
 
     const iniciarSesion = async () => {
-        const { email, password } = user
+
         try {
-            await app.auth().signInWithEmailAndPassword(email, password)
+
+            //TODO: Este mensaje se debe controlar del lado del cliente, 
+            //ahora lo hago asi porque no lo se. Marco
+            if (undefined === user || null === user) {
+                var e = new Error('No se han ingresado datos.');
+                throw e
+            }
+
+            const { email, password } = user
+
+
+            //TODO: Este mensaje se debe controlar del lado del cliente, 
+            //ahora lo hago asi porque no lo se. Marco
+            if (undefined === email || null === email) {
+                var e = new Error('email');
+                throw e
+            }
+
+            //TODO: Este mensaje se debe controlar del lado del cliente, 
+            //ahora lo hago asi porque no lo se
+            //en este momento no estaria controlandose porque 
+            //no entra en esa excepcion. Marco
+            if (undefined === password) {
+                var e = new Error('El password no puede quedar vacío.');
+                throw e
+            }
+
+            await app.auth()
+                .signInWithEmailAndPassword(email, password)
+                .then(() => {
+                    this.setState({ error: '', loading: false });
+                    this.props.navigation.navigate('Home');
+                })
             // const currentUser = await app.auth().currentUser
             // const firebaseToken = await app.auth().currentUser.getIdToken()
             // console.log(currentUser);
@@ -38,9 +69,30 @@ export default function Login({ children }) {
 
         }
         catch (e) {
-            alert(e)
+
+            var message = ""
+            if (e.code === "auth/user-not-found") {
+                message = "Email y contraseña no estan registrados o ha sido anulado."
+            } if (e.code === "auth/invalid-email") {
+                message = "No es un formato de correo correcto."
+            } else {
+                message = e.message
+            }
+            mensajeClient(message)
+
         }
     }
+
+    const mensajeClient = (message) => toast.success(message, {
+        position: "top-right",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+    });
+
     const iniciarSesionProviders = async (provider) => {
 
         try {
@@ -58,7 +110,16 @@ export default function Login({ children }) {
 
         }
         catch (e) {
-            alert(e)
+
+            var message = ""
+            if (e.code === "auth/user-not-found") {
+                message = "Email y contraseña no estan registrados o ha sido anulado."
+            } if (e.code === "auth/invalid-email") {
+                message = "No es un formato de correo correcto."
+            } else {
+                message = e.message
+            }
+            mensajeClient(message)
         }
     }
 
@@ -74,11 +135,7 @@ export default function Login({ children }) {
                 <div className="flex justify-center">
                     <div className="max-w-sm w-96">
                         <Card>
-                            {/* <CardHeader color="lightBlue">
-                        <H5 color="white" style={{ marginBottom: 0 }}>
-                            Login
-                        </H5>
-                    </CardHeader> */}
+                            <ToastContainer />
 
                             <CardBody>
                                 <div className="mb-12 px-4 bg-bb">
@@ -102,11 +159,7 @@ export default function Login({ children }) {
                                     />
                                 </div>
                                 <div className="mb-4 px-4">
-                                    {/* <Checkbox
-                                        color="lightBlue"
-                                        text="Remember Me"
-                                        id="remember"
-                                    /> */}
+
                                 </div>
                             </CardBody>
                             <CardFooter>
