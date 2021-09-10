@@ -83,7 +83,7 @@ export default function Login({ children }) {
         }
     }
 
-    const mensajeClient = (message) => toast.success(message, {
+    const mensajeClient = (message) => toast.warn(message, {
         position: "top-right",
         autoClose: 2500,
         hideProgressBar: false,

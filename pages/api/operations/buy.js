@@ -40,6 +40,4 @@ export default async function (req, res) {
     if (req.method === 'DELETE') {
         res.status(200).send({ message: 'deleted' })
     }
-    res.status(401).send({message: 'not fund'})
-
 }
