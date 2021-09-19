@@ -12,7 +12,7 @@ export default async function (req, res) {
 
                 console.log(req.body)
 
-                console.log(market_data.current_price.usd)
+                console.log(data?.cryptoBuy + ' ' + market_data.current_price.usd)
 
                 db.collection(user).doc("movimientos").collection("order").doc().set({
                     portafolio: data?.portafolio,

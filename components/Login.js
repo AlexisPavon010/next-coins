@@ -187,7 +187,7 @@ export default function Login({ children }) {
                                         Google
                                     </Button>
                                 </div>
-                                <div className='mb-4'>
+                                {/* <div className='mb-4'>
                                     <Button
                                         onClick={() => iniciarSesionProviders(facebookAuthProvider)}
                                         color="blueGray"
@@ -198,7 +198,7 @@ export default function Login({ children }) {
                                     >
                                         Facebook
                                     </Button>
-                                </div>
+                                </div> */}
                                 <div className=''>
                                     <Button
                                         onClick={() => setRegister(true)}

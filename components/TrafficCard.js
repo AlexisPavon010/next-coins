@@ -10,14 +10,14 @@ export default function TrafficCard() {
             <CardHeader color="purple" contentPosition="none">
                 <div className="w-full flex items-center justify-between">
                     <h2 className="text-white text-2xl">Social Media</h2>
-                    <Button
+                    {/* <Button
                         color="transparent"
                         buttonType="link"
                         size="lg"
                         style={{ padding: 0 }}
                     >
                         See More
-                    </Button>
+                    </Button> */}
                 </div>
             </CardHeader>
             <CardBody>

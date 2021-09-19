@@ -18,7 +18,7 @@ export default function Trade({userUid, tradeFb}) {
             <div className=" md:px-8 h-auto mt-10">
                 <div className="container mx-auto max-w-full">
                     <div className="grid grid-cols-1 mb-16">
-                        <Movimientos userUid={userUid} tradeFb={JSON.parse(tradeFb)} />
+                        <Movimientos userUid={userUid} />
                     </div>
                 </div>
             </div>
@@ -29,21 +29,15 @@ export async function getServerSideProps(ctx) {
 
   // console.log('hola ' + ctx.req.cookies.token )
 
-    const resF = await firestore().collection(ctx.req.cookies.token).doc('movimientos').collection('order').get()
-    const docs = resF.docs.map((doc)=> ({...doc.data()}))
+    // const resF = await firestore().collection(ctx.req.cookies.token).doc('movimientos').collection('order').get()
+    // const docs = resF.docs.map((doc)=> ({...doc.data(),docId: doc.id}))
 
 // console.log(docs)
 
   
-    if (!docs) {
-      return {
-        props: {}
-      }
-    }
-  
     return {
       props: {
-        tradeFb: JSON.stringify(docs),
+        // tradeFb: JSON.stringify(docs),
         userUid: ctx.req.cookies.token,
       }, // will be passed to the page component as props
     }

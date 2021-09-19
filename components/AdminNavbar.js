@@ -19,7 +19,6 @@ export default function AdminNavbar({ showSidebar, setShowSidebar }) {
     useEffect(() => {
         app.auth().onAuthStateChanged(user => setUser(user))
         setShowSidebar('-left-64')
-        console.log('object')
     }, [])
 
     // console.log(realTimeData)
@@ -30,7 +29,6 @@ export default function AdminNavbar({ showSidebar, setShowSidebar }) {
 
 
     const cerrarSesion = () => {
-        console.log('salir')
         destroyCookie(null, 'token', '', {
             maxAge: 30 * 24 * 60 * 60
           })
@@ -84,7 +82,7 @@ export default function AdminNavbar({ showSidebar, setShowSidebar }) {
                                 color="transparent"
                                 buttonText={
                                     <div className="w-12">
-                                        <Image src={'https://bridgemotorsbucket.s3.amazonaws.com/static/images/Home/user_men.png'} rounded />
+                                        <Image src={userFb?.photoURL ? userFb?.photoURL : 'https://bridgemotorsbucket.s3.amazonaws.com/static/images/Home/user_men.png'} rounded />
                                     </div>
                                 }
                                 rounded
