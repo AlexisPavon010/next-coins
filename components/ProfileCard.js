@@ -8,7 +8,7 @@ import LeadText from '@material-tailwind/react/LeadText';
 import Button from '@material-tailwind/react/Button';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { useEffect, useRef, useState } from 'react';
-import { app, db, storage } from '../firebase/client';
+import { auth, db, storage } from '../firebase/client';
 import Input from '@material-tailwind/react/Input';
 import axios from 'axios';
 
@@ -26,7 +26,7 @@ export default function ProfileCard({ userFb }) {
 
 
     useEffect(() => {
-        app.auth().onAuthStateChanged(user => setUser(user))
+        auth.onAuthStateChanged(user => setUser(user))
     }, [])
 
 

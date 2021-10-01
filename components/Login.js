@@ -52,7 +52,7 @@ export default function Login({ children }) {
                 throw e
             }
 
-            await app.auth()
+            await auth()
                 .signInWithEmailAndPassword(email, password)
                 .then(() => {
                     this.setState({ error: '', loading: false });

@@ -6,7 +6,7 @@ import Image from '@material-tailwind/react/Image';
 import Dropdown from '@material-tailwind/react/Dropdown';
 import DropdownItem from '@material-tailwind/react/DropdownItem';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import { app, db } from '../firebase/client';
+import { auth, db } from '../firebase/client';
 import { useEffect, useState } from 'react';
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
 
@@ -17,7 +17,7 @@ export default function AdminNavbar({ showSidebar, setShowSidebar }) {
     const [userFb, setUser] = useState(undefined)
 
     useEffect(() => {
-        app.auth().onAuthStateChanged(user => setUser(user))
+        auth.onAuthStateChanged(user => setUser(user))
         setShowSidebar('-left-64')
     }, [])
 
@@ -32,7 +32,7 @@ export default function AdminNavbar({ showSidebar, setShowSidebar }) {
         destroyCookie(null, 'token', '', {
             maxAge: 30 * 24 * 60 * 60
           })
-        app.auth().signOut()
+        auth.signOut()
     }
 
     return (

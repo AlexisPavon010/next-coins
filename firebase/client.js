@@ -26,5 +26,6 @@ googleAuthProvider = new firebase.auth.GoogleAuthProvider();
 facebookAuthProvider = new firebase.auth.FacebookAuthProvider();
 const db = firebase.firestore()
 const storage = firebase.storage();
+const auth = firebase.auth();
 
-export {app, db, storage, googleAuthProvider, facebookAuthProvider };
+export {auth, db, storage, googleAuthProvider, facebookAuthProvider };

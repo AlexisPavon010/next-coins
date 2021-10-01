@@ -4,7 +4,7 @@ import CardFooter from '@material-tailwind/react/CardFooter';
 import InputIcon from '@material-tailwind/react/InputIcon';
 import Button from '@material-tailwind/react/Button';
 import { useState } from 'react';
-import { app, db } from '../firebase/client';
+import { auth, db } from '../firebase/client';
 import Head from 'next/head';
 
 
@@ -23,7 +23,7 @@ export default function Register({ setRegister }) {
     const iniciarSesion = async () => {
         const { email, password } = state
         try {
-            await app.auth().createUserWithEmailAndPassword(email, password).then(userRegister => {
+            await auth.createUserWithEmailAndPassword(email, password).then(userRegister => {
                 db.collection('user').doc(userRegister.user.uid).set({
                     token: userRegister.user.refreshToken,
                     uid: userRegister.user.uid,

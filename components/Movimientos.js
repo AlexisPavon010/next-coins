@@ -5,7 +5,7 @@ import CardBody from '@material-tailwind/react/CardBody';
 import Icon from '@material-tailwind/react/Icon';
 import Button from '@material-tailwind/react/Button';
 import Progress from '@material-tailwind/react/Progress';
-import { app, db } from '../firebase/client';
+import { auth, db } from '../firebase/client';
 import { useEffect, useState } from 'react';
 import { useCollection } from 'react-firebase-hooks/firestore';
 
@@ -25,7 +25,7 @@ export default function Movimientos({ tradeFb, userUid }) {
     // console.log(realtimeDb)
 
     // useEffect(() => {
-    //     app.auth().onAuthStateChanged(user => setUser(user))
+    //     auth.onAuthStateChanged(user => setUser(user))
     //     db.collection(userFb?.uid).doc('movimientos').collection('order').get().then(
     //         doc=>doc.docs.map(data=> setTrade(data.data())))
     // }, [])

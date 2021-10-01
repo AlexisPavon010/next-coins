@@ -9,7 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { app } from '../firebase/client';
+import { auth } from '../firebase/client';
 
 
 
@@ -32,7 +32,7 @@ export default function TradeForm() {
     const [state, setState] = useState(estadoInicial)
 
     useEffect(() => {
-        app.auth().onAuthStateChanged(user => setUser(user))
+        auth.onAuthStateChanged(user => setUser(user))
     }, [])
 
     const cuandoCambiaElInput = (event) => {
@@ -42,7 +42,7 @@ export default function TradeForm() {
         setState({ ...state, [name]: value })
 
     }
-    const error = () => toast.error("Upss Inserte un campo valido", {
+    const error = (error) => toast.error(error ? error : "Upss Inserte un campo valido", {
         position: "top-right",
         autoClose: 2500,
         hideProgressBar: false,
@@ -96,10 +96,12 @@ export default function TradeForm() {
                 setLoading(false)
                 error()
             }
-            if (res.data.operation === "") {
+
+            if (res.data.error) {
                 setState(estadoInicial)
                 setLoading(false)
-                error()
+                // console.log(res.data.error)
+                error(res.data.error)
             }
 
         }

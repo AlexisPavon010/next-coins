@@ -4,7 +4,7 @@ import "@material-tailwind/react/tailwind.css";
 import Sidebar from '../components/Sidebar'
 import Head from 'next/head'
 import { useEffect, useState } from 'react';
-import { app } from '../firebase/client';
+import { auth } from '../firebase/client';
 import Login from '../components/Login';
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
 
@@ -24,7 +24,7 @@ function MyApp({ Component, pageProps }) {
 
 
   useEffect(() => {
-    app.auth().onAuthStateChanged(user => guardarUsuario(user))
+    auth.onAuthStateChanged(user => guardarUsuario(user))
     setShowSidebar('-left-64')
   }, [pageProps])
 
