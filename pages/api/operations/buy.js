@@ -6,15 +6,6 @@ import { db } from '../../../firebase/client';
 export default async function (req, res) {
     const { data, user } = req.body;
 
-
-    try {
-
-        await connectDB()
-    } catch (error) {
-        console.log(error)
-    }
-
-
     if (req.method === 'POST') {
         if (data.portafolio === '') {
             console.log('no hay portafolio')
@@ -52,6 +43,7 @@ export default async function (req, res) {
         else {
 
             try {
+                await connectDB()
 
                 if (data) {
                     const coinGekoApiResponse = await axios.get(`https://api.coingecko.com/api/v3/coins/${data?.cryptoBuy.toLowerCase()}`)
