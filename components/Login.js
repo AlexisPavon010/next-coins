@@ -5,7 +5,7 @@ import InputIcon from '@material-tailwind/react/InputIcon';
 import Button from '@material-tailwind/react/Button';
 import Register from './Register'
 import { useState } from 'react';
-import { app, db, googleAuthProvider, facebookAuthProvider } from '../firebase/client';
+import { auth, db, googleAuthProvider, facebookAuthProvider } from '../firebase/client';
 import Head from 'next/head';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -52,7 +52,7 @@ export default function Login({ children }) {
                 throw e
             }
 
-            await auth()
+            await auth
                 .signInWithEmailAndPassword(email, password)
                 .then(() => {
                     this.setState({ error: '', loading: false });
@@ -96,7 +96,7 @@ export default function Login({ children }) {
     const iniciarSesionProviders = async (provider) => {
 
         try {
-            await app.auth().signInWithPopup(provider)
+            await auth.signInWithPopup(provider)
             const currentUser = await app.auth().currentUser
             const firebaseToken = await app.auth().currentUser.getIdToken()
             console.log(currentUser);
