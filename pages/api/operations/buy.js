@@ -6,10 +6,6 @@ import { db } from '../../../firebase/client';
 
 export default async function (req, res) {
     const { data, user } = req.body;
-
-    await connectDB()
-
-
     if (req.method === 'POST') {
         if (data.portafolio === '') {
             console.log('no hay portafolio')
@@ -61,7 +57,7 @@ export default async function (req, res) {
 
                     const { market_data } = coinGekoApiResponse.data;
 
-
+                    await connectDB()
                     const newtradeModels = new tradeModels(data)
                     newtradeModels.save()
 
@@ -96,6 +92,7 @@ export default async function (req, res) {
 
     if (req.method === 'GET') {
         try {
+            await connectDB()
             const resDb = await tradeModels.find({})
             res.status(200).send(resDb)
 
