@@ -1,5 +1,5 @@
 
-const mongodburl = 'mongodb+srv://test:1234Pavon@cluster0.zgmq0.mongodb.net/Cluster0?retryWrites=true&w=majority'
+const mongodburl = process.env.DATABASE_URL
 
 import mongoose from 'mongoose';
 

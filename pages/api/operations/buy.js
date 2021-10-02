@@ -43,7 +43,7 @@ export default async function (req, res) {
             return;
         }
         if (data.quantity === '') {
-            console.log('no hay quantity')
+            console.log(data,'no hay quantity')
             res.status(200).send({ error: 'no hay quantity' })
             return;
         }
@@ -77,7 +77,7 @@ export default async function (req, res) {
                         cryptoSell: data?.cryptoSell,
                         currentPrice: market_data.current_price.usd,
                         import: data?.import,
-                        price: data?.price,
+                        // price: data?.price,
                         quantity: data?.quantity,
                         auditDate: new Date()
                     })
