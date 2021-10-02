@@ -1,10 +1,14 @@
 import axios from 'axios';
 import connectDB from '../../../database';
+import TradeModels from '../../../database/models/TradeModels';
 import tradeModels from '../../../database/models/TradeModels';
 import { db } from '../../../firebase/client';
 
 export default async function (req, res) {
     const { data, user } = req.body;
+
+    await connectDB()
+
 
     if (req.method === 'POST') {
         if (data.portafolio === '') {
@@ -51,7 +55,6 @@ export default async function (req, res) {
         else {
 
             try {
-                await connectDB()
 
                 if (data) {
                     const coinGekoApiResponse = await axios.get(`https://api.coingecko.com/api/v3/coins/${data?.cryptoBuy.toLowerCase()}`)
