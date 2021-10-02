@@ -97,8 +97,8 @@ export default function Login({ children }) {
 
         try {
             await auth.signInWithPopup(provider)
-            const currentUser = await app.auth().currentUser
-            const firebaseToken = await app.auth().currentUser.getIdToken()
+            const currentUser = await auth.currentUser
+            const firebaseToken = await auth.currentUser.getIdToken()
             console.log(currentUser);
             await db.collection('user').doc(currentUser.uid).set({
                 token: firebaseToken,

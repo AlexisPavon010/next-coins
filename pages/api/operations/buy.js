@@ -10,34 +10,42 @@ export default async function (req, res) {
         if (data.portafolio === '') {
             console.log('no hay portafolio')
             res.status(200).send({ error: 'no hay portafolio' })
+            return;
         }
         if (data.date === '') {
             console.log('no hay date')
             res.status(200).send({ error: 'no hay date' })
+            return;
         }
         if (data.operation === '') {
             console.log('no hay operation')
             res.status(200).send({ error: 'no hay error' })
+            return;
         }
         if (data.cryptoBuy === '') {
             console.log('no hay cryptoBuy')
             res.status(200).send({ error: 'no hay cryptoBuy' })
+            return;
         }
         if (data.cryptoSell === '') {
             console.log('no hay cryptoSell')
             res.status(200).send({ error: 'no hay cryptoSell' })
+            return;
         }
         if (data.import === '') {
             console.log('no hay import')
             res.status(200).send({ error: 'no hay import' })
+            return;
         }
         if (data.price === '') {
             console.log('no hay price')
             res.status(200).send({ error: 'no hay price' })
+            return;
         }
         if (data.quantity === '') {
             console.log('no hay quantity')
             res.status(200).send({ error: 'no hay quantity' })
+            return;
         }
 
         else {
