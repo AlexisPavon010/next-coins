@@ -43,9 +43,11 @@ export default function TradeForm() {
         async function fetchData() {
             const coinGekoApiResponse = await axios.get(`https://api.coingecko.com/api/v3/coins/${state?.cryptoBuy.toLowerCase()}`)
             console.log(coinGekoApiResponse)
+            console.log(state)
             setCryptoBuy(coinGekoApiResponse.data)
             setState({ ...state, [state.quantity]: cryptoBuy?.market_data?.current_price?.usd })
         }
+        fetchData()
     }, [state.import])
 
     useEffect(() => {
@@ -53,8 +55,12 @@ export default function TradeForm() {
             const coinGekoApiResponse = await axios.get(`https://api.coingecko.com/api/v3/coins/${state?.cryptoSell.toLowerCase()}`)
             console.log(coinGekoApiResponse)
             setCryptoSell(coinGekoApiResponse.data)
-            setState({ ...state, [estadoInicial.price]: cryptoSell?.market_data?.current_price?.usd })
+            const quantity = parseInt(state.import) * coinGekoApiResponse.data.market_data?.current_price?.usd % cryptoBuy?.market_data?.current_price?.usd
+            setState({ ...state, price: coinGekoApiResponse.data.market_data?.current_price?.usd, quantity })
+            console.log(state.import)
+            // console.log({ ...state, price: cryptoSell?.market_data?.current_price?.usd })
         }
+        fetchData()
     }, [state.import])
 
 
@@ -96,6 +102,7 @@ export default function TradeForm() {
     });
 
     const enviarAlServidor = async (e) => {
+        console.log(state)
         e.preventDefault()
         setLoading(true)
         const res = await axios.post('/api/operations/buy', {
@@ -245,7 +252,7 @@ export default function TradeForm() {
                                     outline={true}
                                     placeholder="Price"
                                     name='price'
-                                    value={`${state.price || cryptoSell?.market_data?.current_price?.usd}`}
+                                    value={state.price}
                                     onChange={cuandoCambiaElInput}
                                 />
                             </div>
@@ -258,7 +265,7 @@ export default function TradeForm() {
                                     outline={true}
                                     placeholder={"Quantity" + " " + state?.cryptoBuy}
                                     name='quantity'
-                                    value={state.quantity || cryptoSell?.market_data?.current_price?.usd}
+                                    value={state.quantity}
                                     onChange={cuandoCambiaElInput}
                                 />
                             </div>

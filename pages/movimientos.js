@@ -1,10 +1,6 @@
 import { firestore } from 'firebase';
 import Head from 'next/head';
 import Movimientos from '../components/Movimientos';
-import { db } from '../firebase/client';
-import connectDB from '../database/index';
-import TradeModels from '../database/models/TradeModels';
-
 export default function Trade({ userUid, tradeFb }) {
 
   // console.log(userUid)
@@ -30,10 +26,10 @@ export default function Trade({ userUid, tradeFb }) {
 export async function getServerSideProps(ctx) {
 
   try {
-    await connectDB()
+    // await connectDB()
 
-    const resDb = await TradeModels.find({})
-    console.log(resDb)
+    // const resDb = await TradeModels.find({})
+    // console.log(resDb)
 
   } catch (error) {
     console.log(error)
