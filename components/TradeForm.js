@@ -45,7 +45,7 @@ export default function TradeForm() {
             console.log(coinGekoApiResponse)
             console.log(state)
             setCryptoBuy(coinGekoApiResponse.data)
-            setState({ ...state, [state.quantity]: cryptoBuy?.market_data?.current_price?.usd })
+            setState({ ...state, quantity: coinGekoApiResponse?.market_data?.current_price?.usd })
         }
         fetchData()
     }, [state.import])
@@ -121,11 +121,6 @@ export default function TradeForm() {
                 setState(estadoInicial)
                 setLoading(false)
                 ventaExitosa()
-            }
-            if (res.data.operation === "Cannot read property 'current_price' of undefined") {
-                setState(estadoInicial)
-                setLoading(false)
-                error()
             }
 
             if (res.data.error) {
@@ -258,7 +253,7 @@ export default function TradeForm() {
                             </div>
 
                             <div className="w-full lg:w-12/12 mb-10 font-light">
-                                <p>$ {state.import && parseInt(state.import) * cryptoSell?.market_data?.current_price?.usd % cryptoBuy?.market_data?.current_price?.usd}</p>
+                                {/* <p>$ {state.import && parseInt(state.import) * cryptoSell?.market_data?.current_price?.usd % cryptoBuy?.market_data?.current_price?.usd}</p> */}
                                 <Input
                                     type="number"
                                     color="green"
