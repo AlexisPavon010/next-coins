@@ -11,9 +11,11 @@
   "dependencies": {
     "@material-tailwind/react": "0.3.4",
     "axios": "^0.21.3",
+    "chart.js": "^3.5.1",
     "firebase": "^8.0.2",
     "firebase-admin": "^9.11.1",
     "joi": "^17.4.2",
+    "moment": "^2.29.1",
     "mongoose": "^6.0.8",
     "next": "11.1.2",
     "nookies": "^2.5.2",

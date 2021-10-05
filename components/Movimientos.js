@@ -50,16 +50,22 @@ export default function Movimientos({ tradeFb, userUid }) {
                                         Operation
                                     </th>
                                     <th className="px-2 text-green-500 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap font-light text-left">
-                                        Cryptocurrency
+                                        CryptoSell
+                                    </th>
+                                    <th className="px-2 text-green-500 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap font-light text-left">
+                                        Quantity
+                                    </th>
+                                    <th className="px-2 text-green-500 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap font-light text-left">
+                                        Value
+                                    </th>
+                                    <th className="px-2 text-green-500 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap font-light text-left">
+                                        CryptoBuy
                                     </th>
                                     <th className="px-2 text-green-500 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap font-light text-left">
                                         Value
                                     </th>
                                     <th className="px-2 text-green-500 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap font-light text-left">
                                         Quantity
-                                    </th>
-                                    <th className="px-2 text-green-500 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap font-light text-left">
-                                        Exchange
                                     </th>
                                     <th className="px-2 text-green-500 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap font-light text-left">
                                         Eliminar
@@ -105,41 +111,47 @@ export default function Movimientos({ tradeFb, userUid }) {
                                     //     </tr>
                                     // )) :
 
-                                        realtimeDb?.docs.map((trade, i) => (
-                                            // console.log(trade.id),
-                                            <tr key={i}>
-                                                <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                                    <i className={`fas fa-circle fa-sm ${trade?.data().operation === 'Sell' ? 'text-green-500' : 'text-blue-500'} mr-2`} ></i>{' '}
-                                                    {trade?.data().operation}
-                                                </th>
-                                                <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                                    {`${trade?.data().operation === 'Sell' ? trade?.data().cryptoSell : trade?.data().cryptoBuy}`}
-                                                </th>
-                                                <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                                    {`${trade?.data().cryptoSell} $${trade?.data().price}`}
-                                                </th>
-                                                <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                                    {`${trade?.data().cryptoSell} $${trade?.data().quantity}`}
-                                                </th>
-                                                <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                                    Binance
-                                                </th>
-                                                <th className="border-b flex justify-center border-gray-200 align-middle font-light text-sm whitespace-nowrap py-2">
-                                                    <Button
-                                                    onClick={()=> DeleteDbDoc(trade?.id)}
-                                                        color="red"
-                                                        buttonType="filled"
-                                                        size="regular"
-                                                        rounded={true}
-                                                        block={false}
-                                                        iconOnly={true}
-                                                        ripple="light"
-                                                    >
-                                                        <Icon name="clear" size="sm" />
-                                                    </Button>
-                                                </th>
-                                            </tr>
-                                        ))}
+                                    realtimeDb?.docs.map((trade, i) => (
+                                        // console.log(trade.id),
+                                        <tr key={i}>
+                                            <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
+                                                <i className={`fas fa-circle fa-sm ${trade?.data().operation === 'Sell' ? 'text-green-500' : 'text-blue-500'} mr-2`} ></i>{' '}
+                                                {trade?.data().operation}
+                                            </th>
+                                            <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
+                                                {`${trade?.data().cryptoSell}`}
+                                            </th>
+                                            <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
+                                                {`${trade?.data().import}`}
+                                            </th>
+                                            <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
+                                                {`$ ${trade?.data().price}`}
+                                            </th>
+                                            <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
+                                                {`$ ${trade?.data().cryptoBuy}`}
+                                            </th>
+                                            <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
+                                                {`$ ${trade?.data().currentPrice}`}
+                                            </th>
+                                            <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
+                                            {`${trade?.data().cryptoSellValue}`}
+                                            </th>
+                                            <th className="border-b flex justify-center border-gray-200 align-middle font-light text-sm whitespace-nowrap py-2">
+                                                <Button
+                                                    onClick={() => DeleteDbDoc(trade?.id)}
+                                                    color="red"
+                                                    buttonType="filled"
+                                                    size="regular"
+                                                    rounded={true}
+                                                    block={false}
+                                                    iconOnly={true}
+                                                    ripple="light"
+                                                >
+                                                    <Icon name="clear" size="sm" />
+                                                </Button>
+                                            </th>
+                                        </tr>
+                                    ))}
 
                                 {/* <tr>
                                     <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">

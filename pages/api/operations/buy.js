@@ -21,7 +21,9 @@ export default async function (req, res) {
             .required(),
         import: Joi.string()
             .required(),
-        quantity: Joi.number()
+        cryptoBuyValue: Joi.number()
+            .required(),
+        cryptoSellValue: Joi.number()
             .required(),
         price: Joi.number()
             .required(),
@@ -56,10 +58,12 @@ export default async function (req, res) {
                 operation: data?.operation,
                 cryptoBuy: data?.cryptoBuy,
                 cryptoSell: data?.cryptoSell,
+                cryptoBuyValue: data?.cryptoBuyValue,
+                cryptoSellValue: data?.cryptoSellValue,
                 currentPrice: market_data.current_price.usd,
                 import: data?.import,
-                // price: data?.price,
-                quantity: data?.quantity,
+                price: data?.price,
+                cryptoSellValue: data?.cryptoSellValue,
                 auditDate: new Date()
             })
 

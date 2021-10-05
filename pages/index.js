@@ -2,6 +2,8 @@ import Head from 'next/head'
 import StatusCard from '../components/StatusCard'
 import PageVisitsCard from '../components/PageVisitsCard'
 import TrafficCard from '../components/TrafficCard'
+import ChartLine from '../components/ChartLine'
+import ChartBar from '../components/ChartBar'
 
 
 export default function Home() {
@@ -14,7 +16,7 @@ export default function Home() {
       </Head>
 
       <main>
-          {/* <div className="bg-gray-800 px-3 md:px-8 h-40" />
+          <div className="bg-gray-800 px-3 md:px-8 h-40" />
           <div className="px-3 md:px-8 -mt-24">
             <div className="container mx-auto max-w-full">
               <div className="grid grid-cols-1 xl:grid-cols-5">
@@ -22,11 +24,11 @@ export default function Home() {
                   <ChartLine />
                 </div>
                 <div className="xl:col-start-4 xl:col-end-6 px-4 mb-14">
-                  <ChartBar />
+                  {/* <ChartBar /> */}
                 </div>
               </div>
             </div>
-          </div> */}
+          </div>
 
         <div className="px-3 md:px-8 mt-24">
           <div className="container mx-auto max-w-full">

@@ -25,23 +25,6 @@ export default function Trade({ userUid, tradeFb }) {
 }
 export async function getServerSideProps(ctx) {
 
-  try {
-    // await connectDB()
-
-    // const resDb = await TradeModels.find({})
-    // console.log(resDb)
-
-  } catch (error) {
-    console.log(error)
-  }
-
-  // console.log('hola ' + ctx.req.cookies.token )
-
-  // const resF = await firestore().collection(ctx.req.cookies.token).doc('movimientos').collection('order').get()
-  // const docs = resF.docs.map((doc)=> ({...doc.data(),docId: doc.id}))
-
-  // console.log(docs)
-
 
   return {
     props: {

@@ -1,37 +1,60 @@
 import { useEffect } from 'react';
-import Chart from 'chart.js';
+import Chart from 'chart.js/auto';
 import Card from '@material-tailwind/react/Card';
 import CardHeader from '@material-tailwind/react/CardHeader';
 import CardBody from '@material-tailwind/react/CardBody';
+import moment from 'moment';
+
+const prices = [
+ 
+    [
+        1632978369899,
+        2.1178199033355405
+      ],
+      [
+        1632981887269,
+        2.105307999600214
+      ],
+      [
+        1632985202997,
+        2.1074230954203164
+      ],
+      [
+        1632988977964,
+        2.0876851548638578
+      ],
+      [
+        1632992503393,
+        2.071252144781128
+      ],
+]
+
+
+const now = prices.map(dia => console.log( moment(dia[0]).utc().format()))
+
+
+const time = prices.map(dia => moment(dia[0]).format() )
 
 export default function ChartLine() {
     useEffect(() => {
         var config = {
             type: 'line',
             data: {
-                labels: [
-                    'January',
-                    'February',
-                    'March',
-                    'April',
-                    'May',
-                    'June',
-                    'July',
-                ],
+                labels: time,
                 datasets: [
-                    {
-                        label: new Date().getFullYear(),
-                        backgroundColor: '#03a9f4',
-                        borderColor: '#03a9f4',
-                        data: [65, 78, 66, 44, 56, 67, 75],
-                        fill: false,
-                    },
+                    // {
+                    //     label: new Date().getFullYear(),
+                    //     backgroundColor: '#03a9f4',
+                    //     borderColor: '#03a9f4',
+                    //     data: [65, 78, 66, 44, 56, 67, 75],
+                    //     fill: false,
+                    // },
                     {
                         label: new Date().getFullYear() - 1,
                         fill: false,
                         backgroundColor: '#ff9800',
                         borderColor: '#ff9800',
-                        data: [40, 68, 86, 74, 56, 60, 87],
+                        data: prices,
                     },
                 ],
             },

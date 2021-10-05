@@ -24,9 +24,10 @@ export default function TradeForm() {
         operation: "",
         cryptoBuy: "",
         cryptoSell: "",
+        cryptoBuyValue: "",
+        cryptoSellValue: "",
         import: "",
         price: "",
-        quantity: ""
     }
 
     const [state, setState] = useState(estadoInicial)
@@ -45,7 +46,7 @@ export default function TradeForm() {
             console.log(coinGekoApiResponse)
             console.log(state)
             setCryptoBuy(coinGekoApiResponse.data)
-            setState({ ...state, quantity: coinGekoApiResponse?.market_data?.current_price?.usd })
+            setState({ ...state, cryptoBuyValue: coinGekoApiResponse?.market_data?.current_price?.usd, })
         }
         fetchData()
     }, [state.import])
@@ -55,8 +56,8 @@ export default function TradeForm() {
             const coinGekoApiResponse = await axios.get(`https://api.coingecko.com/api/v3/coins/${state?.cryptoSell.toLowerCase()}`)
             console.log(coinGekoApiResponse)
             setCryptoSell(coinGekoApiResponse.data)
-            const quantity = parseInt(state.import) * coinGekoApiResponse.data.market_data?.current_price?.usd % cryptoBuy?.market_data?.current_price?.usd
-            setState({ ...state, price: coinGekoApiResponse.data.market_data?.current_price?.usd, quantity })
+            const cryptoSellValue = parseInt(state.import) * cryptoSell?.market_data?.current_price?.usd % cryptoBuy?.market_data?.current_price?.usd
+            setState({ ...state, price: coinGekoApiResponse.data.market_data?.current_price?.usd, cryptoBuyValue: cryptoBuy?.market_data?.current_price?.usd, cryptoSellValue })
             console.log(state.import)
             // console.log({ ...state, price: cryptoSell?.market_data?.current_price?.usd })
         }
@@ -245,22 +246,32 @@ export default function TradeForm() {
                                     type="number"
                                     color="green"
                                     outline={true}
-                                    placeholder="Price"
+                                    placeholder={"Price" + " " + state?.cryptoSell}
                                     name='price'
                                     value={state.price}
                                     onChange={cuandoCambiaElInput}
                                 />
                             </div>
 
-                            <div className="w-full lg:w-12/12 mb-10 font-light">
-                                {/* <p>$ {state.import && parseInt(state.import) * cryptoSell?.market_data?.current_price?.usd % cryptoBuy?.market_data?.current_price?.usd}</p> */}
+                            <div className="w-full lg:w-6/12 pr-4 mb-10 font-light">
                                 <Input
                                     type="number"
                                     color="green"
                                     outline={true}
                                     placeholder={"Quantity" + " " + state?.cryptoBuy}
-                                    name='quantity'
-                                    value={state.quantity}
+                                    name='cryptoSellValue'
+                                    value={state.cryptoSellValue}
+                                    onChange={cuandoCambiaElInput}
+                                />
+                            </div>
+                            <div className="w-full lg:w-6/12 pr-4 mb-10 font-light">
+                                <Input
+                                    type="number"
+                                    color="green"
+                                    outline={true}
+                                    placeholder={"Price" + " " + state?.cryptoBuy}
+                                    name='cryptoBuyValue'
+                                    value={state?.cryptoBuyValue}
                                     onChange={cuandoCambiaElInput}
                                 />
                             </div>
