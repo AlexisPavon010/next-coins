@@ -3,7 +3,6 @@ import StatusCard from '../components/StatusCard'
 import PageVisitsCard from '../components/PageVisitsCard'
 import TrafficCard from '../components/TrafficCard'
 import ChartLine from '../components/ChartLine'
-import ChartBar from '../components/ChartBar'
 
 
 export default function Home() {
