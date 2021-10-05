@@ -19,17 +19,17 @@ export default function Home() {
           <div className="px-3 md:px-8 -mt-24">
             <div className="container mx-auto max-w-full">
               <div className="grid grid-cols-1 xl:grid-cols-5">
-                <div className="xl:col-start-1 xl:col-end-4 px-4 mb-14">
+                <div className="xl:col-start-1 xl:col-end-6 px-4">
                   <ChartLine />
                 </div>
-                <div className="xl:col-start-4 xl:col-end-6 px-4 mb-14">
-                  {/* <ChartBar /> */}
-                </div>
+                {/* <div className="xl:col-start-4 xl:col-end-6 px-4 mb-14">
+                  <ChartBar />
+                </div> */}
               </div>
             </div>
           </div>
 
-        <div className="px-3 md:px-8 mt-24">
+        <div className="px-3 md:px-8 mt-20">
           <div className="container mx-auto max-w-full">
             <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 mb-4">
               <StatusCard
