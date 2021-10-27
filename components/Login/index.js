@@ -31,7 +31,7 @@ export default function Login() {
     const iniciarSesion = async () => {
         console.log(state)
         try {
-            const res = await axios.post('http://localhost:3000/api/user', {
+            const res = await axios.post('https://next-crypto-topaz.vercel.app/api/user', {
                 email: state.email,
                 password: state.password
             })
