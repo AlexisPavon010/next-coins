@@ -9,11 +9,10 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import { auth, db } from '../firebase/client';
 import { useEffect, useState } from 'react';
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
+import { useRouter } from 'next/router'
 
 export default function AdminNavbar({ showSidebar, setShowSidebar }) {
-
-
-    
+    const router = useRouter()
     const [userFb, setUser] = useState(undefined)
 
     useEffect(() => {
@@ -33,6 +32,7 @@ export default function AdminNavbar({ showSidebar, setShowSidebar }) {
             maxAge: 30 * 24 * 60 * 60
           })
         auth.signOut()
+        router.reload(window.location.pathname)
     }
 
     return (

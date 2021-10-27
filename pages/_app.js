@@ -6,29 +6,39 @@ import Head from 'next/head'
 import { useEffect, useState } from 'react';
 import { auth } from '../firebase/client';
 import Login from '../components/Login';
-import { parseCookies, setCookie, destroyCookie } from 'nookies'
+import nookies from 'nookies';
+import { useRouter } from 'next/router'
 
-function MyApp({ Component, pageProps }) {
+
+
+function MyApp({ Component, pageProps, cookies }) {
+  const router = useRouter()
+
+  console.log(cookies)
+
 
   const [showSidebar, setShowSidebar] = useState('-left-64');
   const [userFb, setUser] = useState(undefined)
 
-  const guardarUsuario = (user) => {
+  const guardarUsuario = (token) => {
     // console.log(user)
-    setUser(user)
-    setCookie(null, 'token', user?.uid, {
-      maxAge: 30 * 24 * 60 * 60
-    })
+    setUser(token)
+    
+    // setCookie(null, 'token', user?.uid, {
+    //   maxAge: 30 * 24 * 60 * 60
+    // })
 
   }
 
 
   useEffect(() => {
-    auth.onAuthStateChanged(user => guardarUsuario(user))
+    if(cookies.token) {
+      setUser(cookies.token)
+    }
     setShowSidebar('-left-64')
   }, [pageProps])
 
-  if (userFb === undefined) return <></>
+  if (userFb === {}) return <></>
   else if (!userFb) return <Login />
 
   return (
@@ -56,4 +66,13 @@ function MyApp({ Component, pageProps }) {
   )
 }
 
+MyApp.getInitialProps = async (appContext) => {
+  const cookies = nookies.get(appContext.ctx);
+
+  return {cookies}
+}
+
 export default MyApp
+
+
+

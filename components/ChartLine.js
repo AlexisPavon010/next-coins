@@ -1,42 +1,64 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Chart from 'chart.js/auto';
 import Card from '@material-tailwind/react/Card';
 import CardHeader from '@material-tailwind/react/CardHeader';
 import CardBody from '@material-tailwind/react/CardBody';
 import moment from 'moment';
+import axios from 'axios';
 
 const prices = [
- 
+
     [
         1632978369899,
         2.1178199033355405
-      ],
-      [
+    ],
+    [
         1632981887269,
         2.105307999600214
-      ],
-      [
+    ],
+    [
         1632985202997,
         2.1074230954203164
-      ],
-      [
+    ],
+    [
         1632988977964,
         2.0876851548638578
-      ],
-      [
+    ],
+    [
         1632992503393,
         2.071252144781128
-      ],
+    ],
 ]
 
 
-const now = prices.map(dia => console.log( moment(dia[0]).utc().format()))
 
 
-const time = prices.map(dia => moment(dia[0]).format() )
+
+const time = prices.map(dia => moment(dia[0]).format('MMMM Do YYYY, h:mm:ss a'))
 
 export default function ChartLine() {
+
+    const [chart, setChart] = useState([])
+
+
+    const now = chart?.map(dia => moment(dia[0]).format())
+    console.log(time)
+    // console.log(time)
+
+
     useEffect(() => {
+
+        const resApi = async () => {
+            const coinGeko = await axios.get('https://api.coingecko.com/api/v3/coins/solana/market_chart?vs_currency=usd&days=5&interval=5')
+
+            setChart(coinGeko?.data.prices)
+
+        }
+        resApi()
+
+
+
+
         var config = {
             type: 'line',
             data: {
@@ -49,13 +71,13 @@ export default function ChartLine() {
                     //     data: [65, 78, 66, 44, 56, 67, 75],
                     //     fill: false,
                     // },
-                    {
-                        label: new Date().getFullYear() - 1,
-                        fill: false,
-                        backgroundColor: '#ff9800',
-                        borderColor: '#ff9800',
-                        data: prices,
-                    },
+                    // {
+                    //     label: new Date().getFullYear() - 1,
+                    //     fill: false,
+                    //     backgroundColor: '#ff9800',
+                    //     borderColor: '#ff9800',
+                    //     data: prices,
+                    // },
                 ],
             },
             options: {
@@ -144,7 +166,7 @@ export default function ChartLine() {
             </CardHeader>
             <CardBody>
                 <div className="relative h-96">
-                    <canvas id="line-chart"></canvas>
+                    <canvas  id="line-chart"></canvas>
                 </div>
             </CardBody>
         </Card>

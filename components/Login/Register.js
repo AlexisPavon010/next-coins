@@ -4,7 +4,7 @@ import CardFooter from '@material-tailwind/react/CardFooter';
 import InputIcon from '@material-tailwind/react/InputIcon';
 import Button from '@material-tailwind/react/Button';
 import { useState } from 'react';
-import { auth, db } from '../firebase/client';
+import { auth, db } from '../../firebase/client';
 import Head from 'next/head';
 
 

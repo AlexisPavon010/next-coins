@@ -5,84 +5,49 @@ import InputIcon from '@material-tailwind/react/InputIcon';
 import Button from '@material-tailwind/react/Button';
 import Register from './Register'
 import { useState } from 'react';
-import { auth, db, googleAuthProvider, facebookAuthProvider } from '../firebase/client';
+import { auth, db, googleAuthProvider, facebookAuthProvider } from '../../firebase/client';
 import Head from 'next/head';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
+import { parseCookies, setCookie, destroyCookie } from 'nookies'
+import { useRouter } from 'next/router'
 
 
-export default function Login({ children }) {
 
-    const [user, setUser] = useState(null)
+export default function Login() {
+
+    const router = useRouter()
+
+    const [state, setUser] = useState(null)
     const [register, setRegister] = useState(false)
 
     const handleInputChange = (e) => {
         e.preventDefault()
         const { name, value } = e.target
-        setUser({ ...user, [name]: value })
+        setUser({ ...state, [name]: value })
     }
 
     const iniciarSesion = async () => {
-
+        console.log(state)
         try {
-
-            //TODO: Este mensaje se debe controlar del lado del cliente, 
-            //ahora lo hago asi porque no lo se. Marco
-            if (undefined === user || null === user) {
-                var e = new Error('No se han ingresado datos.');
-                throw e
-            }
-
-            const { email, password } = user
-
-
-            //TODO: Este mensaje se debe controlar del lado del cliente, 
-            //ahora lo hago asi porque no lo se. Marco
-            if (undefined === email || null === email) {
-                var e = new Error('email');
-                throw e
-            }
-
-            //TODO: Este mensaje se debe controlar del lado del cliente, 
-            //ahora lo hago asi porque no lo se
-            //en este momento no estaria controlandose porque 
-            //no entra en esa excepcion. Marco
-            if (undefined === password) {
-                var e = new Error('El password no puede quedar vacío.');
-                throw e
-            }
-
-            await auth
-                .signInWithEmailAndPassword(email, password)
-                .then(() => {
-                    this.setState({ error: '', loading: false });
-                    this.props.navigation.navigate('Home');
+            const res = await axios.post('http://localhost:3000/api/user', {
+                email: state.email,
+                password: state.password
+            })
+            if (res.status === 200) {
+                setCookie(null, 'token', res.data.token, {
+                    maxAge: 30 * 24 * 60 * 60
                 })
-            // const currentUser = await app.auth().currentUser
-            // const firebaseToken = await app.auth().currentUser.getIdToken()
-            // console.log(currentUser);
-            // await db.collection('user').doc(currentUser.uid).set({
-            //     token: firebaseToken,
-            //     uid: currentUser.uid,
-            //     email: currentUser.email,
-            // })
-
-        }
-        catch (e) {
-
-            var message = ""
-            if (e.code === "auth/user-not-found") {
-                message = "Email y contraseña no estan registrados o ha sido anulado."
-            } if (e.code === "auth/invalid-email") {
-                message = "No es un formato de correo correcto."
-            } else {
-                message = e.message
+                router.reload(window.location.pathname)
             }
-            mensajeClient(message)
 
+            console.log(res)
+        } catch (error) {
+            console.log(error)
         }
-    }
 
+    }
     const mensajeClient = (message) => toast.warn(message, {
         position: "top-right",
         autoClose: 2500,
