@@ -2,7 +2,7 @@ import Head from 'next/head'
 import StatusCard from '../components/StatusCard'
 import PageVisitsCard from '../components/PageVisitsCard'
 import TrafficCard from '../components/TrafficCard'
-import ChartLine from '../components/ChartLine'
+import ChartLine from '../components/Chart/'
 
 
 export default function Home() {
@@ -14,20 +14,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-          <div className="bg-gray-800 px-3 md:px-8 h-40" />
-          <div className="px-3 md:px-8 -mt-24">
-            <div className="container mx-auto max-w-full">
-              <div className="grid grid-cols-1 xl:grid-cols-5">
-                <div className="xl:col-start-1 xl:col-end-6 px-4">
-                  <ChartLine />
-                </div>
-                {/* <div className="xl:col-start-4 xl:col-end-6 px-4 mb-14">
-                  <ChartBar />
-                </div> */}
-              </div>
-            </div>
+      <main className="bg-gray-800">
+        <div className="pt-8">
+          <div className="container mx-auto max-w-full">
+            <ChartLine />
           </div>
+        </div>
 
         <div className="px-3 md:px-8 mt-20">
           <div className="container mx-auto max-w-full">

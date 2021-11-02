@@ -9,7 +9,7 @@ const connectDB = async (req, res) => {
     // Use new db connection
     await mongoose.connect(mongodburl, {
       useUnifiedTopology: true,
-      // useFindAndModify: false,
+      // useFindAndModify: true,
       // useCreateIndex: true,
       useNewUrlParser: true,
       bufferCommands: true,

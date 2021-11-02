@@ -31,18 +31,19 @@ export default function Login() {
     const iniciarSesion = async () => {
         console.log(state)
         try {
-            const res = await axios.post('https://next-crypto-topaz.vercel.app/api/user', {
-                email: state.email,
-                password: state.password
-            })
-            if (res.status === 200) {
-                setCookie(null, 'token', res.data.token, {
-                    maxAge: 30 * 24 * 60 * 60
-                })
-                router.reload(window.location.pathname)
-            }
 
-            console.log(res)
+            auth.signInWithEmailAndPassword(state.email, state.password)
+            // const res = await axios.post(`/api/auth/`, {
+            //     usuario: state.email,
+            //     clave: state.password
+            // })
+            // if (res.status === 200) {
+            //     setCookie(null, 'token', res.data.token, {
+            //         maxAge: 30 * 24 * 60 * 60
+            //     })
+            //     router.reload(window.location.pathname)
+            // }
+
         } catch (error) {
             console.log(error)
         }

@@ -19,10 +19,13 @@ export default async function (req, res) {
 
         try {
             const filterUser = async (email, password) => {
-                const { data } = await axios.get('http://186.64.122.100:9095/api/user')
-                const user = data.find(u => { return u.usuario === email })
+                const clave = password;
+                const usuario = email;
 
-                if (user.clave === password) {
+                const { data } = await axios.get(`http://186.64.122.100:9095/api/user/login/${clave,usuario}`)
+                // const user = data.find(u => { return u.usuario === email })
+
+                if (data) {
                     const token = jwt.sign({
                         data: 'foobar'
                     }, 'secret', { expiresIn: 60 * 60 });

@@ -8,6 +8,8 @@ import { auth } from '../firebase/client';
 import Login from '../components/Login';
 import nookies from 'nookies';
 import { useRouter } from 'next/router'
+import connectDB from '../database';
+import { initilaRoles } from './api/auth/libs/initialRoles';
 
 
 
@@ -32,9 +34,10 @@ function MyApp({ Component, pageProps, cookies }) {
 
 
   useEffect(() => {
-    if(cookies.token) {
-      setUser(cookies.token)
-    }
+    auth.onAuthStateChanged(user => guardarUsuario(user))
+    // if(cookies.token) {
+    //   setUser(cookies.token)
+    // }
     setShowSidebar('-left-64')
   }, [pageProps])
 
@@ -68,6 +71,9 @@ function MyApp({ Component, pageProps, cookies }) {
 
 MyApp.getInitialProps = async (appContext) => {
   const cookies = nookies.get(appContext.ctx);
+
+  await connectDB()
+  // await initilaRoles()
 
   return {cookies}
 }

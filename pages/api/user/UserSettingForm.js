@@ -1,5 +1,3 @@
-
-
 export default async function (req, res) {
 
     if (req.method === 'GET') {
