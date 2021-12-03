@@ -16,26 +16,15 @@ import { initilaRoles } from './api/auth/libs/initialRoles';
 function MyApp({ Component, pageProps, cookies }) {
   const router = useRouter()
 
-  // console.log(cookies)
+  console.log(cookies)
 
 
   const [showSidebar, setShowSidebar] = useState('-left-64');
   const [userFb, setUser] = useState(undefined)
 
-  const guardarUsuario = (user) => {
-    // console.log(user)
-    setUser(user)
-
-    setCookie(null, 'token', user, {
-      maxAge: 30 * 24 * 60 * 60
-    })
-
-  }
-
-
   useEffect(() => {
     // auth.onAuthStateChanged(user => guardarUsuario(user))
-    if (cookies.token) {
+    if (cookies) {
       setUser(cookies.token)
     }
     setShowSidebar('-left-64')
