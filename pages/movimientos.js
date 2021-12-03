@@ -1,7 +1,6 @@
-import { firestore } from 'firebase';
 import Head from 'next/head';
 import Movimientos from '../components/Movimientos';
-export default function Trade({ userUid, tradeFb }) {
+export default function Trade({ userUid}) {
 
   // console.log(userUid)
 

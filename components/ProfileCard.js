@@ -6,7 +6,6 @@ import Head from 'next/head';
 import Icon from '@material-tailwind/react/Icon';
 import LeadText from '@material-tailwind/react/LeadText';
 import Button from '@material-tailwind/react/Button';
-import { useCollection } from 'react-firebase-hooks/firestore';
 import { useEffect, useRef, useState } from 'react';
 import { auth, db, storage } from '../firebase/client';
 import Input from '@material-tailwind/react/Input';

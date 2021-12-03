@@ -6,6 +6,7 @@ import Button from '@material-tailwind/react/Button';
 import { useState } from 'react';
 import { auth, db } from '../../firebase/client';
 import Head from 'next/head';
+import axios from 'axios';
 
 
 
@@ -23,15 +24,21 @@ export default function Register({ setRegister }) {
     const iniciarSesion = async () => {
         const { email, password } = state
         try {
-            await auth.createUserWithEmailAndPassword(email, password).then(userRegister => {
-                db.collection('user').doc(userRegister.user.uid).set({
-                    token: userRegister.user.refreshToken,
-                    uid: userRegister.user.uid,
-                    email: userRegister.user.email,
-                    displayName: userRegister.user.displayName,
-                    creado: Date()
-                })
+            const res = axios.post('/api/user', {
+                email: email,
+                password: password
             })
+
+            console.log(res)
+            // await auth.createUserWithEmailAndPassword(email, password).then(userRegister => {
+            //     db.collection('user').doc(userRegister.user.uid).set({
+            //         token: userRegister.user.refreshToken,
+            //         uid: userRegister.user.uid,
+            //         email: userRegister.user.email,
+            //         displayName: userRegister.user.displayName,
+            //         creado: Date()
+            //     })
+            // })
         }
         catch (e) {
             alert(e)
@@ -44,7 +51,7 @@ export default function Register({ setRegister }) {
                 <title>Registrarse | Crypto Coins</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <div className="bg-login-background bg-cover bg-center w-screen h-screen relative flex flex-col justify-center">
+            <div className="bg-gray-800  bg-cover bg-center w-screen h-screen relative flex flex-col justify-center">
                 <div className="flex justify-center">
                     <div className="max-w-sm w-96">
                         <Card>

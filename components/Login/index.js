@@ -29,20 +29,21 @@ export default function Login() {
     }
 
     const iniciarSesion = async () => {
-        console.log(state)
         try {
 
-            auth.signInWithEmailAndPassword(state.email, state.password)
-            // const res = await axios.post(`/api/auth/`, {
-            //     usuario: state.email,
-            //     clave: state.password
-            // })
-            // if (res.status === 200) {
-            //     setCookie(null, 'token', res.data.token, {
-            //         maxAge: 30 * 24 * 60 * 60
-            //     })
-            //     router.reload(window.location.pathname)
-            // }
+            // auth.signInWithEmailAndPassword(state.email, state.password)
+            const res = await axios.post(`/api/user`, {
+                email: state.email,
+                password: state.password,
+
+            })
+            console.log(res)
+            if (res.status === 200) {
+                setCookie(null, 'token', res.data.token, {
+                    maxAge: 30 * 24 * 60 * 60
+                })
+                router.reload(window.location.pathname)
+            }
 
         } catch (error) {
             console.log(error)
@@ -97,7 +98,7 @@ export default function Login() {
                 <title>Iniciar | Crypto Coins</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <div className="bg-login-background bg-cover bg-center w-screen h-screen relative flex flex-col justify-center">
+            <div className="bg-gray-800 bg-cover bg-center w-screen h-screen relative flex flex-col justify-center">
                 <div className="flex justify-center">
                     <div className="max-w-sm w-96">
                         <Card>

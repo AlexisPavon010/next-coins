@@ -6,7 +6,7 @@ import Head from 'next/head'
 import { useEffect, useState } from 'react';
 import { auth } from '../firebase/client';
 import Login from '../components/Login';
-import nookies from 'nookies';
+import nookies, { setCookie } from 'nookies';
 import { useRouter } from 'next/router'
 import connectDB from '../database';
 import { initilaRoles } from './api/auth/libs/initialRoles';
@@ -16,32 +16,32 @@ import { initilaRoles } from './api/auth/libs/initialRoles';
 function MyApp({ Component, pageProps, cookies }) {
   const router = useRouter()
 
-  console.log(cookies)
+  // console.log(cookies)
 
 
   const [showSidebar, setShowSidebar] = useState('-left-64');
   const [userFb, setUser] = useState(undefined)
 
-  const guardarUsuario = (token) => {
+  const guardarUsuario = (user) => {
     // console.log(user)
-    setUser(token)
-    
-    // setCookie(null, 'token', user?.uid, {
-    //   maxAge: 30 * 24 * 60 * 60
-    // })
+    setUser(user)
+
+    setCookie(null, 'token', user, {
+      maxAge: 30 * 24 * 60 * 60
+    })
 
   }
 
 
   useEffect(() => {
-    auth.onAuthStateChanged(user => guardarUsuario(user))
-    // if(cookies.token) {
-    //   setUser(cookies.token)
-    // }
+    // auth.onAuthStateChanged(user => guardarUsuario(user))
+    if (cookies.token) {
+      setUser(cookies.token)
+    }
     setShowSidebar('-left-64')
   }, [pageProps])
 
-  if (userFb === {}) return <></>
+  if (userFb === {}) return <div className='bg-gray-800' ></div>
   else if (!userFb) return <Login />
 
   return (
@@ -57,6 +57,7 @@ function MyApp({ Component, pageProps, cookies }) {
           integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
           crossOrigin="anonymous"
         />
+        
       </Head>
       <Sidebar
         showSidebar={showSidebar}
@@ -75,7 +76,7 @@ MyApp.getInitialProps = async (appContext) => {
   await connectDB()
   // await initilaRoles()
 
-  return {cookies}
+  return { cookies }
 }
 
 export default MyApp

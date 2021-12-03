@@ -17,24 +17,18 @@ export default async function (req, res) {
         console.log(req.body)
 
         try {
-            const userFind = await CreateUserSchema.findOne({ email: email })
-            console.log(userFind)
-
-            if (!userFind) {
-                return res.status(404).send({ error: 'no encontrado' })
-            } 
-
-            const compare = await CreateUserSchema.comparePassword(password, userFind.password)
-            console.log(compare)
-
-            if (!compare) return res.status(401).send({ error: 'no password' })
-
-            const token = jwt.sign({ id: userFind._id }, 'token', {
+            const newUser = new CreateUserSchema({
+                username,
+                email,
+                password: await CreateUserSchema.encryptPassword(password)
+            })
+            const saveUser = await newUser.save()
+            console.log(saveUser)
+            const token = jwt.sign({ id: saveUser._id }, 'token', {
                 expiresIn: 86400
             })
             res.status(200).send({ token: token })
         } catch (error) {
-            console.log(error)
             res.status(404).send({ error: error.message })
         }
     }

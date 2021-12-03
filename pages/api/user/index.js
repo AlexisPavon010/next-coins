@@ -19,18 +19,20 @@ export default async function (req, res) {
 
         try {
             const filterUser = async (email, password) => {
-                const clave = password;
-                const usuario = email;
-
-                const { data } = await axios.get(`http://186.64.122.100:9095/api/user/login/${clave,usuario}`)
+    
+                const { data } = await axios.post(`http://186.64.122.100:9095/api/login/`, {
+                    usuario: email,
+                    clave: password,
+                })
                 // const user = data.find(u => { return u.usuario === email })
+                console.log(data)
 
                 if (data) {
-                    const token = jwt.sign({
-                        data: 'foobar'
-                    }, 'secret', { expiresIn: 60 * 60 });
+                    // const token = jwt.sign({
+                    //     data: 'foobar'
+                    // }, 'secret', { expiresIn: 60 * 60 });
 
-                    res.status(200).send({ token: token })
+                    res.status(200).send({ token: data })
                 } else {
                     res.status(401).send({ message: 'password wron' })
                 }

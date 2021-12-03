@@ -3,6 +3,8 @@ import StatusCard from '../components/StatusCard'
 import PageVisitsCard from '../components/PageVisitsCard'
 import TrafficCard from '../components/TrafficCard'
 import ChartLine from '../components/Chart/'
+import CoinTransfer from '../components/CoinGekoAssets/CoinTransfer'
+import CoinCompareChart from '../components/CoinGekoAssets/CoinCompareChart'
 
 
 export default function Home() {
@@ -72,10 +74,10 @@ export default function Home() {
           <div className="container mx-auto max-w-full">
             <div className="grid grid-cols-1 xl:grid-cols-6">
               <div className="xl:col-start-1 xl:col-end-4 px-4 mb-14">
-                <PageVisitsCard />
+                <CoinTransfer />
               </div>
               <div className="xl:col-start-4 xl:col-end-8 px-4 mb-14">
-                <TrafficCard />
+                <CoinCompareChart />
               </div>
             </div>
           </div>

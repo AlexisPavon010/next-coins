@@ -12,6 +12,19 @@ a {
   text-decoration: none;
 }
 
+.tooltip {
+  border-radius: 0.25rem;
+  background: #26313c;
+  color: #fff;
+  padding: 1rem;
+  box-shadow: 15px 30px 40px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+.cardbackground {
+  background: rgb(31,41,55);
+  background: linear-gradient(0deg, rgb(20, 64, 121) 0%, rgb(27, 85, 194) 100%);
+}
+
 * {
   box-sizing: border-box;
 }
