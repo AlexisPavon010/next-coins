@@ -13,7 +13,7 @@ export default function Trade() {
             <div className="md:px-8 h-auto mt-10">
                 <div className="container mx-auto max-w-full">
                     <div className="grid grid-cols-1 mb-16">
-                        {/* <TradeForm /> */}
+                        <TradeForm />
                     </div>
                 </div>
             </div>

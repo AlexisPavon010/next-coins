@@ -34,15 +34,14 @@ export default function TradeForm() {
     const [cryptoBuy, setCryptoBuy] = useState(null)
     const [cryptoSell, setCryptoSell] = useState(null)
 
-    const fetchData = async () => {
-        const coinGekoApiResponse = await axios.get(`https://api.coingecko.com/api/v3/coins/${state?.cryptoBuy.toLowerCase()}`)
-        console.log(coinGekoApiResponse)
-        console.log(state)
-        setCryptoBuy(coinGekoApiResponse.data)
-        setState({ ...state, cryptoBuyValue: coinGekoApiResponse?.market_data?.current_price?.usd, })
-    }
-
     useEffect(() => {
+        async function fetchData() {
+            const coinGekoApiResponse = await axios.get(`https://api.coingecko.com/api/v3/coins/${state?.cryptoBuy.toLowerCase()}`)
+            console.log(coinGekoApiResponse)
+            console.log(state)
+            setCryptoBuy(coinGekoApiResponse.data)
+            setState({ ...state, cryptoBuyValue: coinGekoApiResponse?.market_data?.current_price?.usd, })
+        }
         fetchData()
     }, [state.import])
 
