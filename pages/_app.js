@@ -4,12 +4,10 @@ import "@material-tailwind/react/tailwind.css";
 import Sidebar from '../components/Sidebar'
 import Head from 'next/head'
 import { useEffect, useState } from 'react';
-import { auth } from '../firebase/client';
 import Login from '../components/Login';
-import nookies, { setCookie } from 'nookies';
+import nookies from 'nookies';
 import { useRouter } from 'next/router'
 import connectDB from '../database';
-import { initilaRoles } from './api/auth/libs/initialRoles';
 
 
 
@@ -24,7 +22,7 @@ function MyApp({ Component, pageProps, cookies }) {
 
   useEffect(() => {
     // auth.onAuthStateChanged(user => guardarUsuario(user))
-    if (cookies) {
+    if (cookies.token) {
       setUser(cookies.token)
     }
     setShowSidebar('-left-64')

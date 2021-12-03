@@ -4,7 +4,7 @@ import TradeModels from '../../../database/models/TradeModels';
 import { db } from '../../../firebase/client';
 const Joi = require('joi');
 
-export default async function (req, res) {
+export default async function Buy (req, res) {
     const { data, user } = req.body;
 
 
@@ -52,20 +52,20 @@ export default async function (req, res) {
 
             console.log(data?.cryptoBuy + ' ' + market_data.current_price.usd)
 
-            db.collection(user).doc("movimientos").collection("order").doc().set({
-                portafolio: data?.portafolio,
-                date: data?.date,
-                operation: data?.operation,
-                cryptoBuy: data?.cryptoBuy,
-                cryptoSell: data?.cryptoSell,
-                cryptoBuyValue: data?.cryptoBuyValue,
-                cryptoSellValue: data?.cryptoSellValue,
-                currentPrice: market_data.current_price.usd,
-                import: data?.import,
-                price: data?.price,
-                cryptoSellValue: data?.cryptoSellValue,
-                auditDate: new Date()
-            })
+            // db.collection(user).doc("movimientos").collection("order").doc().set({
+            //     portafolio: data?.portafolio,
+            //     date: data?.date,
+            //     operation: data?.operation,
+            //     cryptoBuy: data?.cryptoBuy,
+            //     cryptoSell: data?.cryptoSell,
+            //     cryptoBuyValue: data?.cryptoBuyValue,
+            //     cryptoSellValue: data?.cryptoSellValue,
+            //     currentPrice: market_data.current_price.usd,
+            //     import: data?.import,
+            //     price: data?.price,
+            //     cryptoSellValue: data?.cryptoSellValue,
+            //     auditDate: new Date()
+            // })
 
             res.status(200).send({ operation: data?.operation })
 

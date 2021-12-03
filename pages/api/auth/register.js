@@ -3,7 +3,7 @@ import connectDB from "../../../database"
 import CreateUserSchema from "./models/CreateUserModel"
 import cors from 'cors'
 
-export default async function (req, res) {
+export default async function Register (req, res) {
 
     cors()
 

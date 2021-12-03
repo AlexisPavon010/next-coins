@@ -9,13 +9,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { auth } from '../firebase/client';
+
 
 
 
 export default function TradeForm() {
 
-    const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(false)
 
     const estadoInicial = {
@@ -35,19 +34,15 @@ export default function TradeForm() {
     const [cryptoBuy, setCryptoBuy] = useState(null)
     const [cryptoSell, setCryptoSell] = useState(null)
 
+    const fetchData = async () => {
+        const coinGekoApiResponse = await axios.get(`https://api.coingecko.com/api/v3/coins/${state?.cryptoBuy.toLowerCase()}`)
+        console.log(coinGekoApiResponse)
+        console.log(state)
+        setCryptoBuy(coinGekoApiResponse.data)
+        setState({ ...state, cryptoBuyValue: coinGekoApiResponse?.market_data?.current_price?.usd, })
+    }
 
     useEffect(() => {
-        auth.onAuthStateChanged(user => setUser(user))
-    }, [])
-
-    useEffect(() => {
-        async function fetchData() {
-            const coinGekoApiResponse = await axios.get(`https://api.coingecko.com/api/v3/coins/${state?.cryptoBuy.toLowerCase()}`)
-            console.log(coinGekoApiResponse)
-            console.log(state)
-            setCryptoBuy(coinGekoApiResponse.data)
-            setState({ ...state, cryptoBuyValue: coinGekoApiResponse?.market_data?.current_price?.usd, })
-        }
         fetchData()
     }, [state.import])
 
@@ -108,7 +103,7 @@ export default function TradeForm() {
         setLoading(true)
         const res = await axios.post('/api/operations/buy', {
             data: state,
-            user: user?.uid
+            // user: user?.uid
         })
 
         if (res.status === 200) {

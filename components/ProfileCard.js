@@ -135,7 +135,7 @@ export default function ProfileCard({ userFb }) {
                 <form>
                     <div className="flex flex-wrap justify-center">
                         <div onClick={() => filePikerRef.current.click()} className="w-48 px-4  -mt-20 cursor-pointer">
-                            <Image style={{ height: "160px" }} className='object-cover' src={'https://bridgemotorsbucket.s3.amazonaws.com/static/images/Home/user_men.png'} rounded raised />
+                            <Image style={{ height: "160px" }} className='object-cover' src={'https://bridgemotorsbucket.s3.amazonaws.com/static/images/Home/user_men.png'} rounded raised alt='https://bridgemotorsbucket.s3.amazonaws.com/static/images/Home/user_men.png' />
 
                             <input
                                 type='file'
